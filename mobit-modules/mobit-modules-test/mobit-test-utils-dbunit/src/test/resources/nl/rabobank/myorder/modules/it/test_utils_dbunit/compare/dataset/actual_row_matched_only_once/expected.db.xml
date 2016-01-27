@@ -1,0 +1,11 @@
+<dataset>
+
+    <!--
+        Should not match, because the actual dataset contains only one row,
+        so we can't match these expected rows to different actual rows.
+    -->
+
+    <PERSONS ID="%{pid_1}" FIRST_NAME="Cristian" />
+    <PERSONS ID="%{pid_2}" FIRST_NAME="Cristian" />
+
+</dataset>

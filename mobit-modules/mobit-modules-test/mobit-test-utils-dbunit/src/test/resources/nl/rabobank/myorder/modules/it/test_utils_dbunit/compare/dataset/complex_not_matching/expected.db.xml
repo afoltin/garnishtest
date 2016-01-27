@@ -1,0 +1,11 @@
+<dataset>
+
+    <!-- will not match, because no Ionut is in Groningen -->
+
+    <PERSONS ID="%{pid_1}" FIRST_NAME="Cristian" />
+    <PERSONS ID="%{pid_2}" FIRST_NAME="Ionut"    />
+
+    <ADDRESSES PERSON_ID="%{pid_1}" CITY="Amsterdam" />
+    <ADDRESSES PERSON_ID="%{pid_2}" CITY="Groningen" />
+
+</dataset>

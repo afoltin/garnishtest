@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.mobiquityinc.mobit</groupId>
+        <artifactId>mobit-seleniumdrivers</artifactId>
+        <version>0.17-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mobit-seleniumdrivers-chrome</artifactId>
+    <name>${project.artifactId}</name>
+
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.rootDirectory>${project.basedir}/../../../..</project.rootDirectory>
+    </properties>
+
+
+    <dependencies>
+        <!--==================== internal modules ====================-->
+
+        <!-- mobit-seleniumdrivers-utils -->
+        <dependency>
+            <groupId>com.mobiquityinc.mobit</groupId>
+            <artifactId>mobit-seleniumdrivers-utils</artifactId>
+        </dependency>
+
+
+        <!--==================== 3rd party dependencies ====================-->
+
+        <!-- slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Nullable/Nonnull annotations -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+
+        <!-- selenium -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+        </dependency>
+
+    </dependencies>
+</project>

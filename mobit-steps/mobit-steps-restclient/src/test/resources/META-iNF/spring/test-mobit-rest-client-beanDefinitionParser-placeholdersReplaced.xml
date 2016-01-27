@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mrc="http://www.mobiquityinc.com/schema/mobit/steps/restclient"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans                  http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.mobiquityinc.com/schema/mobit/steps/restclient    http://www.mobiquityinc.com/schema/mobit/steps/restclient.xsd
+       ">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:META-iNF/spring/test-mobit-rest-client-beanDefinitionParser.properties"/>
+    </bean>
+
+    <bean id="abstractPreparer" abstract="true" class="com.mobiquityinc.mobit.steps.restclient.spring.TestRequestPreparer" />
+
+    <bean id="preparer_1" parent="abstractPreparer" c:name="preparer_1" />
+    <bean id="preparer_not_injected" parent="abstractPreparer" c:name="preparer_not_injected" />
+
+
+    <mrc:rest-client baseUrl="${test-mobit-rest-client-beanDefinitionParser.baseUrl}">
+        <mrc:request-preparers>
+            <mrc:request-preparer ref="${test-mobit-rest-client-beanDefinitionParser.preparer-bean-name-1}" />
+        </mrc:request-preparers>
+    </mrc:rest-client>
+
+</beans>

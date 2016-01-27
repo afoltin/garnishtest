@@ -1,0 +1,37 @@
+# maven build
+target
+
+# files produced during build
+*.class
+*.jar
+*.war
+*.ear
+
+# IntelliJ project files
+.idea/
+*.iws
+*.ipr
+*.iml
+
+# IntelliJ plugins files
+atlassian-ide-plugin.xml
+.sonar_lock
+
+# Eclipse project files
+.classpath
+.project
+.settings
+.springBeans
+.studio
+
+# Mac useless stuff
+.DS_Store
+
+# Window useless stuff
+Thumbs.db
+
+# VIM swap files
+*.swp
+
+# log files
+*.log

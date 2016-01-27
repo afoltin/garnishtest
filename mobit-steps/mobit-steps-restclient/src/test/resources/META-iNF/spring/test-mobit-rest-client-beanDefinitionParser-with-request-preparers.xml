@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mrc="http://www.mobiquityinc.com/schema/mobit/steps/restclient"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans                  http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.mobiquityinc.com/schema/mobit/steps/restclient    http://www.mobiquityinc.com/schema/mobit/steps/restclient.xsd
+       ">
+
+    <bean id="abstractPreparer" abstract="true" class="com.mobiquityinc.mobit.steps.restclient.spring.TestRequestPreparer" />
+
+    <bean id="preparer_1" parent="abstractPreparer" c:name="preparer_1" />
+    <bean id="preparer_2" parent="abstractPreparer" c:name="preparer_2" />
+    <bean id="preparer_3" parent="abstractPreparer" c:name="preparer_3" />
+
+    <bean id="preparer_not_injected" parent="abstractPreparer" c:name="preparer_not_injected" />
+
+
+    <mrc:rest-client baseUrl="http://www.example.com/with-request-parsers">
+        <mrc:request-preparers>
+            <mrc:request-preparer ref="preparer_1" />
+            <mrc:request-preparer ref="preparer_2" />
+            <mrc:request-preparer ref="preparer_3" />
+        </mrc:request-preparers>
+    </mrc:rest-client>
+
+</beans>

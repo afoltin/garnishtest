@@ -1,0 +1,11 @@
+<dataset>
+
+    <PERSONS ID="1" FIRST_NAME="Cristian" LAST_NAME="Mocanu" />
+
+    <PROJECTS ID="1" PERSON_ID="1" NAME="MyOrder" />
+    <PROJECTS ID="2" PERSON_ID="1" NAME="Ziggo New Agent Portal" />
+
+    <ADDRESSES ID="1" PERSON_ID="1" TITLE="Work Mob RAI"    COUNTRY="NL" CITY="Amsterdam" STREET="Barbara Strozilaan" HOUSE_NUMBER="300" POST_CODE="1083 HN" />
+    <ADDRESSES ID="2" PERSON_ID="1" TITLE="Work DTG Areana" COUNTRY="NL" CITY="Amsterdam" STREET="Herikerbergweg"     HOUSE_NUMBER="88"  POST_CODE="1101 CM" />
+
+</dataset>

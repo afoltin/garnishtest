@@ -1,0 +1,9 @@
+<FindBugsFilter>
+
+    <Match>
+        <Class name="~.*\.*"/>
+
+        <Bug pattern="REC_CATCH_EXCEPTION" />
+    </Match>
+
+</FindBugsFilter>

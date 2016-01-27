@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans.xsd
+       ">
+
+    <!-- todo: document how to override this bean to add function objects to the default list -->
+    <bean id="mobitFunctionValueMatcher_additionalFunctionObjects" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list/>
+        </property>
+    </bean>
+
+    <!-- todo: document how to override this bean to replace the default function objects -->
+    <bean id="mobitFunctionValueMatcher_functionObjects" parent="mobitFunctionValueMatcher_additionalFunctionObjects" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list merge="true">
+                <ref bean="mobitFunctionValueMatcher_functionObject_regexMatcher" />
+                <ref bean="mobitFunctionValueMatcher_functionObject_emptinessChecker" />
+            </list>
+        </property>
+    </bean>
+
+
+
+    <bean id="mobitFunctionValueMatcher_functionCaller" class="com.mobiquityinc.mobit.modules.generic.function_value_matcher.FunctionValueMatcher">
+        <constructor-arg name="functionObjects" ref="mobitFunctionValueMatcher_functionObjects" />
+    </bean>
+
+    <bean id="mobitFunctionValueMatcher_functionObject_regexMatcher" class="com.mobiquityinc.mobit.modules.generic.function_value_matcher.functions.RegexMatcher" />
+    <bean id="mobitFunctionValueMatcher_functionObject_emptinessChecker" class="com.mobiquityinc.mobit.modules.generic.function_value_matcher.functions.EmptinessChecker" />
+
+</beans>

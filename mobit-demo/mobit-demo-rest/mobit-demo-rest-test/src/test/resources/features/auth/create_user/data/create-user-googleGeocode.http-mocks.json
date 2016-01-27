@@ -1,0 +1,12 @@
+[
+  {
+    "request" : {
+      "urlPathPattern": "/maps/api/geocode/json.*",
+      "method"        : "GET"
+    },
+    "response": {
+      "status": 200,
+      "body"  : "{\"results\":[{\"geometry\":{\"location\":{\"lat\":1,\"lng\":2}}}]}"
+    }
+  }
+]

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.mobiquityinc.com/schema/mobit/steps/mockhttpserver"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tool="http://www.springframework.org/schema/tool"
+            elementFormDefault="qualified"
+            targetNamespace="http://www.mobiquityinc.com/schema/mobit/steps/mockhttpserver">
+
+    <xsd:import namespace="http://www.springframework.org/schema/tool" schemaLocation="http://www.springframework.org/schema/tool/spring-tool-4.2.xsd"/>
+
+    <xsd:element name="mock-http-server" type="mockHttpServerType" />
+
+    <xsd:complexType name="mockHttpServerType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Creates a bean of type a com.mobiquityinc.mobit.steps.mockhttpserver.server.HttpMockServerManager with id "mobitStepsMockHttpServer_httpMocksManager".
+            </xsd:documentation>
+            <xsd:appinfo>
+                <tool:annotation>
+                    <tool:exports type="com.mobiquityinc.mobit.steps.mockhttpserver.server.HttpMockServerManager" />
+                </tool:annotation>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:attribute name="port" use="required" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation>
+                    The port on which this mock HTTP server will run.
+                </xsd:documentation>
+                <xsd:appinfo>
+                    <tool:annotation kind="direct">
+                        <tool:expected-type type="java.lang.Integer" />
+                    </tool:annotation>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+</xsd:schema>

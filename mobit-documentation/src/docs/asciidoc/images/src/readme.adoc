@@ -1,0 +1,4 @@
+This directory contains source files for diagrams.
+
+The .graphml files were created using https://www.yworks.com/products/yed[the yEd free graph editor].
+The images were exported from that application.

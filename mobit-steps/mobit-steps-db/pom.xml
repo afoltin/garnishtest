@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.mobiquityinc.mobit</groupId>
+        <artifactId>mobit-steps</artifactId>
+        <version>0.17-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mobit-steps-db</artifactId>
+    <name>${project.artifactId}</name>
+
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.rootDirectory>${project.basedir}/../..</project.rootDirectory>
+    </properties>
+
+
+    <dependencies>
+
+        <!--==================== internal modules ====================-->
+
+        <!-- mobit-mobit-db-utils -->
+        <dependency>
+            <groupId>com.mobiquityinc.mobit</groupId>
+            <artifactId>mobit-db-utils</artifactId>
+        </dependency>
+
+        <!-- mobit-test-utils-dbunit -->
+        <dependency>
+            <groupId>com.mobiquityinc.mobit</groupId>
+            <artifactId>mobit-test-utils-dbunit</artifactId>
+        </dependency>
+
+        <!-- mobit-steps-vars -->
+        <dependency>
+            <groupId>com.mobiquityinc.mobit</groupId>
+            <artifactId>mobit-steps-vars</artifactId>
+        </dependency>
+
+
+        <!--==================== 3rd party dependencies ====================-->
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Nullable/Nonnull annotations -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+
+        <!-- cucumber -->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+        </dependency>
+
+
+    </dependencies>
+</project>

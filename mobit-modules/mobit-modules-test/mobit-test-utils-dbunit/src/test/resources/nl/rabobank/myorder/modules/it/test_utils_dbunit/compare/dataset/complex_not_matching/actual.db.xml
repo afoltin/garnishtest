@@ -1,0 +1,20 @@
+<dataset>
+
+    <PERSONS ID="1" FIRST_NAME="Cristian" />
+    <PERSONS ID="2" FIRST_NAME="Cristian" />
+    <PERSONS ID="3" FIRST_NAME="Ionut"    />
+    <PERSONS ID="4" FIRST_NAME="Ionut"    />
+    <PERSONS ID="5" FIRST_NAME="Ionut"    />
+
+    <ADDRESSES ID="1" PERSON_ID="1" CITY="Almere"    />
+    <ADDRESSES ID="2" PERSON_ID="1" CITY="Den Haag"  />
+
+    <ADDRESSES ID="3" PERSON_ID="2" CITY="Hoofddorp" />
+    <ADDRESSES ID="4" PERSON_ID="2" CITY="Amsterdam" />
+
+    <ADDRESSES ID="5" PERSON_ID="5" CITY="Almere"    />
+    <ADDRESSES ID="6" PERSON_ID="5" CITY="Amsterdam" />
+    <ADDRESSES ID="7" PERSON_ID="5" CITY="Rotterdam" />
+
+
+</dataset>

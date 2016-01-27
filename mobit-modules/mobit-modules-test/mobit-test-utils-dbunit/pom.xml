@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.mobiquityinc.mobit</groupId>
+        <artifactId>mobit-modules-test</artifactId>
+        <version>0.17-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mobit-test-utils-dbunit</artifactId>
+    <name>${project.artifactId}</name>
+
+    <properties>
+        <project.rootDirectory>${project.basedir}/../../..</project.rootDirectory>
+    </properties>
+
+    <dependencies>
+
+        <!--==================== internal modules ====================-->
+
+        <!-- mobit-function-value-matcher -->
+        <dependency>
+            <groupId>com.mobiquityinc.mobit</groupId>
+            <artifactId>mobit-function-value-matcher</artifactId>
+        </dependency>
+
+        <!-- mobit-variables-resolver -->
+        <dependency>
+            <groupId>com.mobiquityinc.mobit</groupId>
+            <artifactId>mobit-variables-resolver</artifactId>
+        </dependency>
+
+        <!-- mobit-mobit-db-utils -->
+        <dependency>
+            <groupId>com.mobiquityinc.mobit</groupId>
+            <artifactId>mobit-db-utils</artifactId>
+        </dependency>
+
+
+        <!--==================== 3rd party dependencies ====================-->
+
+        <!-- Nullable/Nonnull annotations -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
+        <!-- commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!-- dbunit -->
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+        </dependency>
+
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+
+        <!--==================== test dependencies ====================-->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>

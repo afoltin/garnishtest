@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mobiquityinc.mobit</groupId>
+    <artifactId>mobit-demo</artifactId>
+    <version>0.17-SNAPSHOT</version>
+
+    <name>${project.artifactId}</name>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>mobit-demo-rest</module>
+    </modules>
+
+    <properties>
+        <project.rootDirectory>${project.basedir}/..</project.rootDirectory>
+
+        <!-- maven settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+        <maven.compiler.debug>true</maven.compiler.debug>
+
+        <!-- versions -->
+        <pmd.version>5.4.1</pmd.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+
+                <!-- maven-clean-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+
+                <!-- resources -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.7</version>
+                </plugin>
+
+                <!-- maven-source-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.4</version>
+
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <Application-Maven-GroupId>${project.groupId}</Application-Maven-GroupId>
+                                <Application-Maven-ArtifactId>${project.artifactId}</Application-Maven-ArtifactId>
+                                <Application-Maven-Version>${project.version}</Application-Maven-Version>
+                                <Application-Maven-BuildTimestamp>${buildTimestamp}</Application-Maven-BuildTimestamp>
+                                <Application-Git-Revision>${git.revision}</Application-Git-Revision>
+                                <Application-Git-Branch>${git.branch}</Application-Git-Branch>
+                                <Application-Git-Tag>${git.tag}</Application-Git-Tag>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+
+                <!-- maven-jar-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.6</version>
+
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <Application-Maven-GroupId>${project.groupId}</Application-Maven-GroupId>
+                                <Application-Maven-ArtifactId>${project.artifactId}</Application-Maven-ArtifactId>
+                                <Application-Maven-Version>${project.version}</Application-Maven-Version>
+                                <Application-Maven-BuildTimestamp>${buildTimestamp}</Application-Maven-BuildTimestamp>
+                                <Application-Git-Revision>${git.revision}</Application-Git-Revision>
+                                <Application-Git-Branch>${git.branch}</Application-Git-Branch>
+                                <Application-Git-Tag>${git.tag}</Application-Git-Tag>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+
+                <!-- maven-javadoc-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.10.3</version>
+                </plugin>
+
+                <!-- maven-compiler-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.5</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <compilerArgs>
+                            <arg>-Werror</arg>
+                            <arg>-Xlint:cast</arg>
+                            <arg>-Xlint:classfile</arg>
+                            <arg>-Xlint:deprecation</arg>
+                            <arg>-Xlint:dep-ann</arg>
+                            <arg>-Xlint:divzero</arg>
+                            <arg>-Xlint:empty</arg>
+                            <arg>-Xlint:fallthrough</arg>
+                            <arg>-Xlint:finally</arg>
+                            <arg>-Xlint:overrides</arg>
+                            <arg>-Xlint:path</arg>
+                            <arg>-Xlint:-processing</arg>
+                            <arg>-Xlint:rawtypes</arg>
+                            <arg>-Xlint:static</arg>
+                            <arg>-Xlint:try</arg>
+                            <arg>-Xlint:unchecked</arg>
+                            <arg>-Xlint:varargs</arg>
+                        </compilerArgs>
+                        <showDeprecation>true</showDeprecation>
+                    </configuration>
+                </plugin>
+
+                <!-- maven-surefire-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19.1</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>**/*ManualTest.java</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+
+                <!-- maven-failsafe-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.19.1</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>**/*ManualTest.java</exclude>
+                        </excludes>
+                    </configuration>
+
+                </plugin>
+
+                <!-- maven-war-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <Application-Maven-GroupId>${project.groupId}</Application-Maven-GroupId>
+                                <Application-Maven-ArtifactId>${project.artifactId}</Application-Maven-ArtifactId>
+                                <Application-Maven-Version>${project.version}</Application-Maven-Version>
+                                <Application-Maven-BuildTimestamp>${buildTimestamp}</Application-Maven-BuildTimestamp>
+                                <Application-Git-Revision>${git.revision}</Application-Git-Revision>
+                                <Application-Git-Branch>${git.branch}</Application-Git-Branch>
+                                <Application-Git-Tag>${git.tag}</Application-Git-Tag>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+
+                <!-- assembly -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+
+                <!--maven-release-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.3</version>
+
+                    <configuration>
+                        <tagNameFormat>release/@{project.version}</tagNameFormat>
+                    </configuration>
+                </plugin>
+
+                <!-- maven-site-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.4</version>
+                </plugin>
+
+                <!-- maven-install-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+
+                <!-- maven-deploy-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+
+                <!-- maven-dependency-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.10</version>
+                </plugin>
+
+                <!-- maven-jgit-buildnumber-plugin -->
+                <plugin>
+                    <groupId>ru.concerteza.buildnumber</groupId>
+                    <artifactId>maven-jgit-buildnumber-plugin</artifactId>
+                    <version>1.2.10</version>
+                    <executions>
+                        <execution>
+                            <id>git-buildnumber</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>extract-buildnumber</goal>
+                            </goals>
+                            <configuration>
+                                <revisionProperty>git.revision</revisionProperty>
+                                <branchProperty>git.branch</branchProperty>
+                                <tagProperty>git.tag</tagProperty>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- PMD -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>3.6</version>
+
+                    <executions>
+                        <execution>
+                            <id>default-cli</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>check-pmd</id>
+                            <goals>
+                                <goal>check</goal>
+                                <goal>cpd-check</goal>
+                            </goals>
+                            <phase>prepare-package</phase>
+                        </execution>
+                    </executions>
+
+                    <configuration>
+                        <failOnViolation>true</failOnViolation>
+                        <failurePriority>5</failurePriority>
+                        <printFailingErrors>true</printFailingErrors>
+                        <verbose>true</verbose>
+                        <linkXRef>false</linkXRef>
+                        <format>xml</format>
+                        <indentSize>4</indentSize>
+                        <rulesets>
+                            <ruleset>${project.rootDirectory}/maven/pmd/pmd-rules.xml</ruleset>
+                        </rulesets>
+                        <targetJdk>${maven.compiler.target}</targetJdk>
+                    </configuration>
+
+                    <dependencies>
+                        <!-- pmd -->
+                        <dependency>
+                            <groupId>net.sourceforge.pmd</groupId>
+                            <artifactId>pmd-core</artifactId>
+                            <version>${pmd.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>net.sourceforge.pmd</groupId>
+                            <artifactId>pmd-java</artifactId>
+                            <version>${pmd.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>net.sourceforge.pmd</groupId>
+                            <artifactId>pmd-javascript</artifactId>
+                            <version>${pmd.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>net.sourceforge.pmd</groupId>
+                            <artifactId>pmd-jsp</artifactId>
+                            <version>${pmd.version}</version>
+                        </dependency>
+
+                    </dependencies>
+                </plugin>
+
+                <!-- checkstyle -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.17</version>
+
+                    <configuration>
+                        <configLocation>${project.rootDirectory}/maven/checkstyle/checkstyle-rules.xml</configLocation>
+                        <encoding>UTF-8</encoding>
+                        <consoleOutput>true</consoleOutput>
+                        <logViolationsToConsole>true</logViolationsToConsole>
+                        <failOnViolation>true</failOnViolation>
+                        <linkXRef>false</linkXRef>
+                    </configuration>
+
+                    <executions>
+                        <execution>
+                            <id>default-cli</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>check-checkstyle</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                            <phase>prepare-package</phase>
+                        </execution>
+                    </executions>
+
+                    <dependencies>
+                        <!-- checkstyle -->
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>6.14.1</version>
+                        </dependency>
+
+                    </dependencies>
+                </plugin>
+
+                <!-- findbugs -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>3.0.3</version>
+
+                    <configuration>
+                        <effort>max</effort>
+                        <threshold>Low</threshold>
+                        <excludeFilterFile>${project.rootDirectory}/maven/findbugs/findbugs-exclude.xml</excludeFilterFile>
+                    </configuration>
+
+                    <executions>
+                        <execution>
+                            <id>default-cli</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>check-findbugs</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                            <phase>prepare-package</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- build-helper-maven-plugin-->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.10</version>
+                </plugin>
+
+                <!-- asciidoctor -->
+                <plugin>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctor-maven-plugin</artifactId>
+                    <version>1.5.3</version>
+
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.asciidoctor</groupId>
+                            <artifactId>asciidoctorj-pdf</artifactId>
+                            <version>1.5.0-alpha.11</version>
+                        </dependency>
+
+                        <!--the jruby version used by asciidoctorj-pdf is broken, and we need to downgrade -->
+                        <dependency>
+                            <groupId>org.jruby</groupId>
+                            <artifactId>jruby-complete</artifactId>
+                            <version>1.7.21</version>
+                        </dependency>
+
+                        <dependency>
+                            <groupId>org.asciidoctor</groupId>
+                            <artifactId>asciidoctorj</artifactId>
+                            <version>1.5.4</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
+                <!-- sonar 2.7 is buggy -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+
+                <!-- maven-enforcer-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>1.4.1</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-maven-build-rules</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <bannedDependencies>
+                                        <excludes>
+                                            <exclude>commons-logging</exclude> <!-- using slf4j (with the jcl bridge) instead of commons-logging -->
+                                        </excludes>
+                                    </bannedDependencies>
+
+                                    <!-- must not have multiple versions of the same dependency -->
+                                    <dependencyConvergence />
+
+                                    <!-- plugin versions must be specified, to make the build not dependent of the maven version -->
+                                    <requirePluginVersions>
+                                        <!-- to ease development of mobit -->
+                                        <banSnapshots>false</banSnapshots>
+                                    </requirePluginVersions>
+
+                                    <!-- get a clear error if attempting to compile with an older JDK -->
+                                    <requireJavaVersion>
+                                        <version>[${maven.compiler.source},)</version>
+                                    </requireJavaVersion>
+
+                                    <!-- make sure we use consistent versions for multi-module 3rd party dependencies -->
+                                    <requireSameVersions>
+                                        <plugins>
+                                            <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
+                                            <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
+                                            <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
+                                        </plugins>
+                                    </requireSameVersions>
+                                    <requireSameVersions>
+                                        <dependencies>
+                                            <dependency>org.slf4j:*</dependency>
+                                        </dependencies>
+                                    </requireSameVersions>
+                                    <requireSameVersions>
+                                        <dependencies>
+                                            <dependency>net.sourceforge.pmd:*</dependency>
+                                        </dependencies>
+                                    </requireSameVersions>
+                                    <requireSameVersions>
+                                        <dependencies>
+                                            <dependency>org.springframework:*</dependency>
+                                        </dependencies>
+                                    </requireSameVersions>
+                                    <requireSameVersions>
+                                        <dependencies>
+                                            <dependency>com.fasterxml.jackson.core:*</dependency>
+                                        </dependencies>
+                                    </requireSameVersions>
+                                </rules>
+
+                                <fail>true</fail>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- jacoco -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.7.6.201602180812</version>
+                    <executions>
+                        <execution>
+                            <id>jacoco-pre-unit-test</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>jacoco-post-unit-test</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
+
+        <plugins>
+            <!-- maven-enforcer-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

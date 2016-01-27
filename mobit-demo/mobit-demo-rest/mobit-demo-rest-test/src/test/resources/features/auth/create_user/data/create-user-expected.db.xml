@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+    <USERS id="%{userId}" name="john doe" username="jdoe" password="@notEmpty()" />
+
+    <ADDRESSES user_id="%{userId}" textual_address="Barbara Strotzilaan 300, 1083 HN, Amsterdam" latitude="1" longitude="2" />
+
+</dataset>
