@@ -1,11 +1,18 @@
 # Garnish
 
+[![Travis](https://img.shields.io/travis/garnish-test/garnish/develop.svg?maxAge=300)](https://travis-ci.org/garnish-test/garnish)
+
 Garnish is a suite of Cucumber steps & supporting code that makes is really easy to create acceptance tests for:
 - REST web services
-- mocking HTTP services to test in isolation
-- selenium
-- database setup & assertions
+- mocking HTTP services for testing in isolation
+- selenium tests
+- database fixtures & assertions
 - more to come :)
 
-## Status
-* CI (develop branch): [![Travis](https://img.shields.io/travis/garnish-test/garnish/develop.svg?maxAge=300)](https://travis-ci.org/garnish-test/garnish)
+## Special thanks 
+
+[![Mobiquity Inc. logo](mobiquity-logo.png)](https://www.mobiquityinc.com/)
+
+Garnish started as an internal project at [Mobiquity Inc.](https://www.mobiquityinc.com/) to make it easy to create acceptance tests in order to insure the quality of the projects developed there.
+
+Special thanks goes to them for agreeing to open-source this project.
