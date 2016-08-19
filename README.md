@@ -1,20 +1,11 @@
-# MobIT - Mobiquity Integration Tests framework
+# Garnish
 
-This repository contains the framework to implement integration tests in the Mobiquity projects.
-
+Garnish is a suite of Cucumber steps & supporting code that makes is really easy to create acceptance tests for:
+- REST web services
+- mocking HTTP services to test in isolation
+- selenium
+- database setup & assertions
+- more to come :)
 
 ## Status
-
-* CI (develop branch): [![](https://jenkins.eu.mobproto.com/buildStatus/icon?job=MOBIT_CI&style=plastic)](https://jenkins.eu.mobproto.com/view/MobIT/job/MOBIT_CI/) 
-* Sonar (develop branch): [![](https://jenkins.eu.mobproto.com/buildStatus/icon?job=MOBIT_Sonar&style=plastic)](https://jenkins.eu.mobproto.com/view/MobIT/job/MOBIT_Sonar) 
-
-
-## Important links
-
-* [Source code](https://github.com/Mobiquity/mobit)
-* [Jenkins](https://jenkins.eu.mobproto.com/view/MobIT/)
-* [Sonar](http://52.19.59.185/dashboard/index/14157)
-* [Nexus](http://public-nexus.mobiquityinc.com/nexus/)
-* [Wiki](https://mobiquity.jira.com/wiki/display/MOBIT/Mobit+Home)
-* [JIRA](https://mobiquity.jira.com/projects/MOBIT/summary)
-
+* CI (develop branch): [![Travis](https://img.shields.io/travis/garnish-test/garnish/develop.svg?maxAge=300)](https://travis-ci.org/garnish-test/garnish)
