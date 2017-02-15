@@ -2,13 +2,15 @@ package com.mobiquityinc.mobit.steps.mockhttpserver;
 
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import com.mobiquityinc.mobit.modules.generic.springutils.ClasspathUtils;
-import com.mobiquityinc.mobit.modules.it.test_utils_json.JsonUtils;
 import com.mobiquityinc.mobit.steps.mockhttpserver.server.HttpMockServerManager;
 import com.mobiquityinc.mobit.steps.vars.resource_files_vars.ResourceFilesVariables;
 import cucumber.api.java.en.Given;
 import lombok.NonNull;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HttpMocksSteps {
@@ -20,14 +22,21 @@ public class HttpMocksSteps {
         this.httpMockServerManager = httpMockServerManager;
     }
 
-    @Given("^http mocks from '(.+)'$")
-    public void given_http_mocks_from_classpath_resource(@NonNull final String httpMocksFile) {
-        final String serializedMappings = ClasspathUtils.loadFromClasspath(ResourceFilesVariables.getResourceFilesPrefix() + httpMocksFile);
+    @Given("^http grppy mocks from \'(.+)\'$")
+    public void given_http_mocks_from_classpath_resource(@NonNull String httpMocksFile) throws JSONException {
+        if (httpMocksFile == null) {
+            throw new IllegalArgumentException("httpMocksFile is null");
+        } else {
+            String serializedMappings = ClasspathUtils.loadFromClasspath(ResourceFilesVariables.getResourceFilesPrefix() + httpMocksFile);
+            List<StubMapping> mappings = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(serializedMappings);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                mappings.add(StubMapping.buildFrom(jsonArray.getJSONObject(i).toString()));
+            }
 
-        final List<StubMapping> mappings = JsonUtils.parseStringToList(serializedMappings, StubMapping.class);
-
-        httpMockServerManager.reset();
-        httpMockServerManager.register(mappings);
+            this.httpMockServerManager.reset();
+            this.httpMockServerManager.register(mappings);
+        }
     }
 
 }
