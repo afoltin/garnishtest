@@ -28,14 +28,19 @@ import java.util.Map;
 
 public class RestClientCallSteps {
 
-    @NonNull private static final ScenarioAttribute<MultipartEntityBuilder> MULTIPART_REQUEST_SCENARIO_ATTR = ScenarioAttribute.create();
+    @NonNull
+    private static final ScenarioAttribute<MultipartEntityBuilder> MULTIPART_REQUEST_SCENARIO_ATTR = ScenarioAttribute.create();
 
-    @NonNull private static final ScenarioAttribute<Map<String, String>> PREPARED_HEADERS = ScenarioAttribute.create();
-    @NonNull private static final ScenarioAttribute<String> PREPARED_REQUEST_BODY = ScenarioAttribute.create();
+    @NonNull
+    private static final ScenarioAttribute<Map<String, String>> PREPARED_HEADERS = ScenarioAttribute.create();
+    @NonNull
+    private static final ScenarioAttribute<String> PREPARED_REQUEST_BODY = ScenarioAttribute.create();
 
-    @NonNull private final ApiClientResponseManager responseManager;
+    @NonNull
+    private final ApiClientResponseManager responseManager;
 
-    @NonNull private final SimpleHttpClient httpClient;
+    @NonNull
+    private final SimpleHttpClient httpClient;
 
     @Autowired
     public RestClientCallSteps(@NonNull @Qualifier("mobitStepsRestClient_responseManager") final ApiClientResponseManager responseManager,
@@ -58,6 +63,32 @@ public class RestClientCallSteps {
         );
     }
 
+    @When("^I call '(POST|PUT|PATCH)' on '(.+)' with JSON from '(.+)' and previously provided headers$")
+    public void callMethodOnUrlWithJsonBodyAndHeaders(
+            @NonNull final HttpMethod method,
+            @NonNull final String url,
+            @NonNull final String jsonReqBodyFile
+    ) {
+        String jsonBody = ClasspathUtils.loadFromClasspath(ResourceFilesVariables.getResourceFilesPrefix() + jsonReqBodyFile);
+
+        jsonBody = ScenarioUserVariables.resolveInText(jsonBody, ValueEscapers.json());
+        jsonBody = JsonUtils.makeValidJson(jsonBody);
+
+
+        HttpRequestBuilder requestBuilder = this.httpClient.request(method, url);
+
+        final Map<String, String> requestHeaders = PREPARED_HEADERS.getValue();
+        if (requestHeaders != null) {
+            for (final Map.Entry<String, String> entry : requestHeaders.entrySet()) {
+                requestBuilder = requestBuilder.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
+        requestBuilder = requestBuilder.body(jsonBody, ContentType.APPLICATION_JSON);
+        HttpResponse response = requestBuilder.execute();
+
+        this.responseManager.setResponse(response);
+    }
+
     @When("^I call '(PUT|POST|PATCH)' on '(.+)' with previously prepared request$")
     public void when_call_method_on_url_with_previously_prepared_request(
             @NonNull final HttpMethod method,
@@ -67,7 +98,6 @@ public class RestClientCallSteps {
         if (requestBody == null) {
             throw new IllegalArgumentException("missing request body; please use one of the steps that set it");
         }
-
 
 
         HttpRequestBuilder requestBuilder = this.httpClient.request(method, url);
@@ -98,8 +128,8 @@ public class RestClientCallSteps {
         jsonBody = JsonUtils.makeValidJson(jsonBody);
 
         final HttpResponse response = this.httpClient.request(method, url)
-                                                     .body(jsonBody, ContentType.APPLICATION_JSON)
-                                                     .execute();
+                .body(jsonBody, ContentType.APPLICATION_JSON)
+                .execute();
 
         this.responseManager.setResponse(response);
     }
@@ -118,8 +148,8 @@ public class RestClientCallSteps {
 
 
         final HttpResponse response = this.httpClient.request(method, url)
-                                                     .body(jsonBody, ContentType.APPLICATION_JSON)
-                                                     .execute();
+                .body(jsonBody, ContentType.APPLICATION_JSON)
+                .execute();
 
         this.responseManager.setResponse(response);
     }
@@ -136,8 +166,8 @@ public class RestClientCallSteps {
         body = ScenarioUserVariables.resolveInText(body, ValueEscapers.json());
 
         final HttpResponse response = this.httpClient.request(method, url)
-                                                     .body(body)
-                                                     .execute();
+                .body(body)
+                .execute();
 
         this.responseManager.setResponse(response);
     }
@@ -184,8 +214,8 @@ public class RestClientCallSteps {
     ) {
         final MultipartEntityBuilder multipartBody = MULTIPART_REQUEST_SCENARIO_ATTR.getRequiredValue();
         final HttpResponse response = this.httpClient.request(method, url)
-                                                     .body(multipartBody)
-                                                     .execute();
+                .body(multipartBody)
+                .execute();
 
         this.responseManager.setResponse(response);
     }
@@ -203,8 +233,8 @@ public class RestClientCallSteps {
     // todo: move this method to a separate support class
     public HttpResponse performJsonRequestWithoutBody(@NonNull final HttpMethod method, @NonNull final String url) {
         return this.httpClient.request(method, url)
-                              .setHeader("Content-Type", "application/json")
-                              .execute();
+                .setHeader("Content-Type", "application/json")
+                .execute();
     }
 
 }
