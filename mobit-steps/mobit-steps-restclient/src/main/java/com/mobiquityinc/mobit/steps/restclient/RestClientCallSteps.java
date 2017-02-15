@@ -84,7 +84,7 @@ public class RestClientCallSteps {
             }
         }
         requestBuilder = requestBuilder.body(jsonBody, ContentType.APPLICATION_JSON);
-        HttpResponse response = requestBuilder.execute();
+        final HttpResponse response = requestBuilder.execute();
 
         this.responseManager.setResponse(response);
     }
