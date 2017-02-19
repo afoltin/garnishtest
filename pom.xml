@@ -35,6 +35,7 @@
         <module>garnish-maven-plugins</module>
         <module>garnish-modules</module>
         <module>garnish-steps</module>
+        <module>garnish-demo</module>
     </modules>
 
     <properties>
