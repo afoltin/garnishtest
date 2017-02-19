@@ -20,7 +20,7 @@
     <!--<logger name="org.springframework.security.web.FilterChainProxy" level="DEBUG" />-->
 
     <!-- uncomment to debug authentication problems -->
-    <!--<logger name="com.mobiquityinc.mobit.demo.rest.web.service.security" level="DEBUG" />-->
+    <!--<logger name="org.garnishtest.demo.rest.web.service.security" level="DEBUG" />-->
 
 
     <root>

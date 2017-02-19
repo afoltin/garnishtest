@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mrc="http://www.garnish-test.org/schema/steps/restclient"
+       xmlns:mhs="http://www.garnish-test.org/schema/steps/mockhttpserver"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans              http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.garnish-test.org/schema/steps/restclient      http://www.garnish-test.org/schema/steps/restclient.xsd
+           http://www.garnish-test.org/schema/steps/mockhttpserver  http://www.garnish-test.org/schema/steps/mockhttpserver.xsd
+       ">
+
+    <!--==================== DB steps ====================-->
+
+    <import resource="classpath:META-INF/spring/garnish-steps-db.xml" />
+
+    <alias alias="garnishStepsDb_deps_dataSource" name="demoTest_dataSource" />
+
+    <bean id="garnishStepsDb_deps_dbUnitConfigurer" class="org.garnishtest.modules.it.test_utils_dbunit.config.impl.MySqlDbUnitConfigurer">
+        <constructor-arg name="databaseName" value="garnish_demo_rest_schema"/>
+    </bean>
+
+
+    <!--==================== REST client steps ====================-->
+
+    <import resource="classpath:META-INF/spring/garnish-steps-restclient.xml" />
+
+    <mrc:rest-client baseUrl="${test.webapp.baseUrl}"
+                     connectionTimeoutMillis="${test.webapp.connectionTimeoutMillis}"
+                     socketTimeoutMillis="${test.webapp.socketTimeoutMillis}"
+                     maxConnections="${test.webapp.maxConnections}"
+                     authenticationProviderRef="demoTest_authenticationProvider" />
+
+    <bean id="demoTest_authenticationProvider" class="org.garnishtest.steps.restclient.auth.provider.impl.TokenMappingRestClientAuthenticationProvider">
+        <constructor-arg name="usernameToHeaderValuesMap">
+            <map>
+                <entry key="test_user" value="64f68f68-f7ac-494a-a96c-4152fba1e3e4" />
+            </map>
+        </constructor-arg>
+    </bean>
+
+
+    <!--==================== mock HTTP server steps ====================-->
+
+    <import resource="classpath:META-INF/spring/garnish-steps-mockhttpserver.xml" />
+
+    <mhs:mock-http-server port="${test.googleGeocodeMockServer.port}" />
+
+</beans>

@@ -15,10 +15,10 @@ MVN_OPTS="${MVN_OPTS} -Dcheckstyle.skip=true"
 cd "${DEMO_REST_ROOT_DIR}"
 
 echo deleting previous report...
-rm -rf "mobit-demo-rest-test/target/cucumber/" 2> /dev/null
+rm -rf "garnish-demo-rest-test/target/cucumber/" 2> /dev/null
 echo ...done deleting previous report
 
 echo ""
 
 # TIP: if building the war starts taking too long, you can make a separate shell script for this, and only run it when needed
-mvn verify -am -pl mobit-demo-rest-web/,mobit-demo-rest-test/ -DrunIntegrationTests "$@"
+mvn verify -am -pl garnish-demo-rest-web/,garnish-demo-rest-test/ -DrunIntegrationTests "$@"

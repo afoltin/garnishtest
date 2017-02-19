@@ -3,8 +3,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mobiquityinc.mobit</groupId>
-    <artifactId>mobit</artifactId>
+    <groupId>org.garnishtest</groupId>
+    <artifactId>garnish</artifactId>
     <version>0.17-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
@@ -73,21 +73,21 @@
 
             <!-- garnish-steps-vars -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-vars</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-steps-db -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-db</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-steps-restclient -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-restclient</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -97,63 +97,63 @@
 
             <!-- garnish-garnish-db-utils -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-db-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-exception-utils -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-exception-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-function-value-matcher -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-function-value-matcher</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-httpclient -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-httpclient</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-uri -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-uri</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-jaxb -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-jaxb</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-spring-utils -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-spring-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-variables-resolver -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-variables-resolver</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-seleniumdrivers-utils -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-seleniumdrivers-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -163,7 +163,7 @@
 
             <!-- garnish-test-utils-dbunit -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-test-utils-dbunit</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -171,7 +171,7 @@
             <!-- todo: this module looks generic (at least move the generic parsing part to a garnish-json-utils module) -->
             <!-- garnish-test-utils-json -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-test-utils-json</artifactId>
                 <version>${project.version}</version>
             </dependency>

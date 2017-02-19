@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mobiquityinc.mobit.demo.rest.web.dao.mappers.AddressesMapper">
+<mapper namespace="org.garnishtest.demo.rest.web.dao.mappers.AddressesMapper">
 
     <insert id="insertAddress" parameterType="Address" useGeneratedKeys="true" keyProperty="id"><![CDATA[
         insert into addresses

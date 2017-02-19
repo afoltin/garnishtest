@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.mobiquityinc.mobit</groupId>
+        <groupId>org.garnishtest</groupId>
         <artifactId>garnish-demo-rest</artifactId>
         <version>0.17-SNAPSHOT</version>
     </parent>
@@ -30,29 +30,29 @@
 
     <dependencies>
 
-        <!--==================== mobit ====================-->
+        <!--==================== garnish ====================-->
 
         <!-- garnish-steps-vars -->
         <dependency>
-            <groupId>com.mobiquityinc.mobit</groupId>
+            <groupId>org.garnishtest</groupId>
             <artifactId>garnish-steps-vars</artifactId>
         </dependency>
 
         <!-- garnish-steps-db -->
         <dependency>
-            <groupId>com.mobiquityinc.mobit</groupId>
+            <groupId>org.garnishtest</groupId>
             <artifactId>garnish-steps-db</artifactId>
         </dependency>
 
         <!-- garnish-steps-mockhttpserver -->
         <dependency>
-            <groupId>com.mobiquityinc.mobit</groupId>
+            <groupId>org.garnishtest</groupId>
             <artifactId>garnish-steps-mockhttpserver</artifactId>
         </dependency>
 
         <!-- garnish-steps-restclient -->
         <dependency>
-            <groupId>com.mobiquityinc.mobit</groupId>
+            <groupId>org.garnishtest</groupId>
             <artifactId>garnish-steps-restclient</artifactId>
         </dependency>
 
@@ -282,9 +282,9 @@
 
                     <!-- pause before tests -->
                     <plugin>
-                        <groupId>com.mobiquityinc.mobit</groupId>
+                        <groupId>org.garnishtest</groupId>
                         <artifactId>pause-maven-plugin</artifactId>
-                        <version>${mobit.version}</version>
+                        <version>${garnish.version}</version>
 
                         <executions>
                             <execution>
@@ -299,9 +299,9 @@
 
                     <!-- cucumber reports -->
                     <plugin>
-                        <groupId>com.mobiquityinc.mobit</groupId>
+                        <groupId>org.garnishtest</groupId>
                         <artifactId>cucumber-reports-maven-plugin</artifactId>
-                        <version>${mobit.version}</version>
+                        <version>${garnish.version}</version>
 
                         <configuration>
                             <inputFile>${project.basedir}/target/cucumber/cucumber-results.json</inputFile>

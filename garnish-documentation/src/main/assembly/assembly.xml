@@ -1,5 +1,5 @@
 <assembly>
-    <id>mobit-documentation-dist</id>
+    <id>garnish-documentation-dist</id>
 
     <formats>
         <format>zip</format>

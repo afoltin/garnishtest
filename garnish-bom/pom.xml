@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.mobiquityinc.mobit</groupId>
-        <artifactId>mobit</artifactId>
+        <groupId>org.garnishtest</groupId>
+        <artifactId>garnish</artifactId>
         <version>0.17-SNAPSHOT</version>
     </parent>
 
@@ -26,14 +26,14 @@
 
             <!-- pause-maven-plugin -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>pause-maven-plugin</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- cucumber-reports-maven-plugin -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>cucumber-reports-maven-plugin</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -43,35 +43,35 @@
 
             <!-- garnish-steps-db -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-db</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-steps-mockhttpserver -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-mockhttpserver</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-steps-restclient -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-restclient</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-steps-selenium -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-selenium</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-steps-vars -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-vars</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -80,14 +80,14 @@
 
             <!-- garnish-seleniumdrivers-phantomjs -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-seleniumdrivers-phantomjs</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- garnish-seleniumdrivers-chrome -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-seleniumdrivers-chrome</artifactId>
                 <version>${project.version}</version>
             </dependency>

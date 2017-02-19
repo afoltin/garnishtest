@@ -1,1 +1,1 @@
-http\://www.mobiquityinc.com/schema/mobit/steps/restclient=com.mobiquityinc.mobit.steps.restclient.spring.RestClientNamespaceHandler
+http\://www.garnish-test.org/schema/steps/restclient=org.garnishtest.steps.restclient.spring.RestClientNamespaceHandler

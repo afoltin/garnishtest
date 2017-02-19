@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans.xsd
+       ">
+
+    <!-- todo: document how to override this bean to add function objects to the default list -->
+    <bean id="garnishFunctionValueMatcher_additionalFunctionObjects" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list/>
+        </property>
+    </bean>
+
+    <!-- todo: document how to override this bean to replace the default function objects -->
+    <bean id="garnishFunctionValueMatcher_functionObjects" parent="garnishFunctionValueMatcher_additionalFunctionObjects" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list merge="true">
+                <ref bean="garnishFunctionValueMatcher_functionObject_regexMatcher" />
+                <ref bean="garnishFunctionValueMatcher_functionObject_emptinessChecker" />
+            </list>
+        </property>
+    </bean>
+
+
+
+    <bean id="garnishFunctionValueMatcher_functionCaller" class="org.garnishtest.modules.generic.function_value_matcher.FunctionValueMatcher">
+        <constructor-arg name="functionObjects" ref="garnishFunctionValueMatcher_functionObjects" />
+    </bean>
+
+    <bean id="garnishFunctionValueMatcher_functionObject_regexMatcher" class="org.garnishtest.modules.generic.function_value_matcher.functions.RegexMatcher" />
+    <bean id="garnishFunctionValueMatcher_functionObject_emptinessChecker" class="org.garnishtest.modules.generic.function_value_matcher.functions.EmptinessChecker" />
+
+</beans>

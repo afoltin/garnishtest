@@ -11,6 +11,6 @@
         For a good organization of spring xml files, we just import to our main file.
      -->
 
-    <import resource="classpath:META-INF/spring/mobit-demo-rest-test.xml" />
+    <import resource="classpath:META-INF/spring/garnish-demo-rest-test.xml" />
 
 </beans>

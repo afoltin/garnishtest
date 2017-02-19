@@ -4,7 +4,7 @@
 <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.mobiquityinc.mobit</groupId>
+        <groupId>org.garnishtest</groupId>
         <artifactId>garnish-steps</artifactId>
         <version>0.17-SNAPSHOT</version>
     </parent>
@@ -25,25 +25,25 @@
 
         <!-- garnish-steps-vars -->
         <dependency>
-            <groupId>com.mobiquityinc.mobit</groupId>
+            <groupId>org.garnishtest</groupId>
             <artifactId>garnish-steps-vars</artifactId>
         </dependency>
 
         <!-- garnish-jaxb -->
         <dependency>
-            <groupId>com.mobiquityinc.mobit</groupId>
+            <groupId>org.garnishtest</groupId>
             <artifactId>garnish-jaxb</artifactId>
         </dependency>
 
         <!-- garnish-spring-utils -->
         <dependency>
-            <groupId>com.mobiquityinc.mobit</groupId>
+            <groupId>org.garnishtest</groupId>
             <artifactId>garnish-spring-utils</artifactId>
         </dependency>
 
         <!-- garnish-test-utils-json -->
         <dependency>
-            <groupId>com.mobiquityinc.mobit</groupId>
+            <groupId>org.garnishtest</groupId>
             <artifactId>garnish-test-utils-json</artifactId>
         </dependency>
 

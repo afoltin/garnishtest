@@ -1,1 +1,1 @@
-http\://www.mobiquityinc.com/schema/mobit/steps/mockhttpserver.xsd=com/mobiquityinc/mobit/steps/mockhttpserver/spring/mobit-steps-mockhttpserver.xsd
+http\://www.garnish-test.org/schema/steps/mockhttpserver.xsd=org/garnishtest/steps/mockhttpserver/spring/garnish-steps-mockhttpserver.xsd

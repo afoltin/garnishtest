@@ -1,1 +1,1 @@
-http\://www.mobiquityinc.com/schema/mobit/steps/mockhttpserver=com.mobiquityinc.mobit.steps.mockhttpserver.spring.MockHttpServerNamespaceHandler
+http\://www.garnish-test.org/schema/steps/mockhttpserver=org.garnishtest.steps.mockhttpserver.spring.MockHttpServerNamespaceHandler

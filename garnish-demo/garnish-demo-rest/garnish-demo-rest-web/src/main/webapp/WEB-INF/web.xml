@@ -5,11 +5,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-    <display-name>MobIT REST Demo</display-name>
+    <display-name>Garnish REST Demo</display-name>
 
     <!-- install the jul-to-slf4j bridge, so that java.util.logging calls are redirected to slf4j -->
     <listener>
-        <listener-class>com.mobiquityinc.mobit.demo.rest.web.infrastructure.logging.Jul4Slf4jBridgeInstaller</listener-class>
+        <listener-class>org.garnishtest.demo.rest.web.infrastructure.logging.Jul4Slf4jBridgeInstaller</listener-class>
     </listener>
 
     <!-- ensure UTF-8 charset for requests -->
@@ -47,7 +47,7 @@
     </context-param>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>com.mobiquityinc.mobit.demo.rest.web.infrastructure.factories.AppConfig</param-value>
+        <param-value>org.garnishtest.demo.rest.web.infrastructure.factories.AppConfig</param-value>
     </context-param>
 
     <listener>

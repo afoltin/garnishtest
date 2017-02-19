@@ -4,7 +4,7 @@
 <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.mobiquityinc.mobit</groupId>
+        <groupId>org.garnishtest</groupId>
         <artifactId>garnish-modules-test</artifactId>
         <version>0.17-SNAPSHOT</version>
     </parent>
@@ -22,19 +22,19 @@
 
         <!-- garnish-function-value-matcher -->
         <dependency>
-            <groupId>com.mobiquityinc.mobit</groupId>
+            <groupId>org.garnishtest</groupId>
             <artifactId>garnish-function-value-matcher</artifactId>
         </dependency>
 
         <!-- garnish-variables-resolver -->
         <dependency>
-            <groupId>com.mobiquityinc.mobit</groupId>
+            <groupId>org.garnishtest</groupId>
             <artifactId>garnish-variables-resolver</artifactId>
         </dependency>
 
         <!-- garnish-garnish-db-utils -->
         <dependency>
-            <groupId>com.mobiquityinc.mobit</groupId>
+            <groupId>org.garnishtest</groupId>
             <artifactId>garnish-db-utils</artifactId>
         </dependency>
 

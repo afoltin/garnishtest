@@ -5,7 +5,7 @@ Feature: Create token
 
 
   Scenario: Get user
-    Given the database state from 'create-token-initial.db.xml'
+    Given the database state from 'create-token-initial.sql'
     And   I am logged in as 'test_user'
     When  I call 'GET' on '/users/current' without body
     Then  the response code should be 200

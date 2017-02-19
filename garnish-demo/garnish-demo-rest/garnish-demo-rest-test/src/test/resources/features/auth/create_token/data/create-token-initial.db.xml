@@ -1,7 +1,0 @@
-<dataset>
-
-    <USERS id="1" name="Test User" username="test_user" password="$2a$10$ihbwrlw5.MYh/PS69Y0ASOZoA5kOebNRhbA7.CVeKXm9RMCf6CANO" />
-
-    <AUTH_TOKENS id="1" user_id="1" date_created="2016-01-15 15:01:29" auth_token="64f68f68-f7ac-494a-a96c-4152fba1e3e4"/>
-
-</dataset>

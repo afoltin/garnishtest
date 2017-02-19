@@ -3,7 +3,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mobiquityinc.mobit</groupId>
+    <groupId>org.garnishtest</groupId>
     <artifactId>garnish-demo</artifactId>
     <version>0.17-SNAPSHOT</version>
 
@@ -313,7 +313,7 @@
 
                                     <!-- plugin versions must be specified, to make the build not dependent of the maven version -->
                                     <requirePluginVersions>
-                                        <!-- to ease development of mobit -->
+                                        <!-- to ease development of garnish -->
                                         <banSnapshots>false</banSnapshots>
                                     </requirePluginVersions>
 

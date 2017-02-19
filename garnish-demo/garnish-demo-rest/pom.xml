@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.mobiquityinc.mobit</groupId>
+        <groupId>org.garnishtest</groupId>
         <artifactId>garnish-demo</artifactId>
         <version>0.17-SNAPSHOT</version>
     </parent>
@@ -32,7 +32,7 @@
         <project.rootDirectory>${project.basedir}/../..</project.rootDirectory>
 
         <!-- versions -->
-        <mobit.version>0.17-SNAPSHOT</mobit.version>
+        <garnish.version>0.17-SNAPSHOT</garnish.version>
         <slf4j.version>1.7.14</slf4j.version>
         <spring.version>4.2.5.RELEASE</spring.version>
         <spring-security.version>4.0.4.RELEASE</spring-security.version>
@@ -43,34 +43,34 @@
     <dependencyManagement>
         <dependencies>
 
-            <!--==================== mobit ====================-->
+            <!--==================== garnish ====================-->
 
             <!-- garnish-steps-vars -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-vars</artifactId>
-                <version>${mobit.version}</version>
+                <version>${garnish.version}</version>
             </dependency>
 
             <!-- garnish-steps-db -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-db</artifactId>
-                <version>${mobit.version}</version>
+                <version>${garnish.version}</version>
             </dependency>
 
             <!-- garnish-steps-restclient -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-restclient</artifactId>
-                <version>${mobit.version}</version>
+                <version>${garnish.version}</version>
             </dependency>
 
             <!-- garnish-steps-mockhttpserver -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-steps-mockhttpserver</artifactId>
-                <version>${mobit.version}</version>
+                <version>${garnish.version}</version>
             </dependency>
 
             <!-- garnish-httpclient -->
@@ -79,9 +79,9 @@
                 We are only using it here because it's a simple to use HTTP client.
             -->
             <dependency>
-                <groupId>com.mobiquityinc.mobit</groupId>
+                <groupId>org.garnishtest</groupId>
                 <artifactId>garnish-httpclient</artifactId>
-                <version>${mobit.version}</version>
+                <version>${garnish.version}</version>
             </dependency>
 
 

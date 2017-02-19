@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans      http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context    http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/util       http://www.springframework.org/schema/util/spring-util.xsd
+       ">
+
+    <!--==================== dependencies ====================-->
+
+    <import resource="classpath:META-INF/spring/garnish-function-value-matcher.xml" />
+
+
+    <!--==================== main ====================-->
+
+    <!-- enable autowiring for the step classes -->
+    <context:annotation-config/>
+
+    <!--
+        todo: documentation for this module
+            - depend on the maven artifact
+            - include the spring file
+            - declare required beans:
+                - "garnishStepsDb_deps_dataSource" of type "javax.sql.DataSource"
+            - create a file at "META-INF/db/cleanup-test-db.sql" or override the bean "garnishStepsDb_cleanupScripts" and provide your own list
+            - override optional beans
+                - "garnishStepsDb_deps_dbUnitConfigurer" of type "org.garnishtest.modules.it.test_utils_dbunit.config.DbUnitConfigurer"
+                  (default is "org.garnishtest.modules.it.test_utils_dbunit.config.impl.NoOpDbUnitConfigurer")
+
+    -->
+
+    <bean id="garnishStepsDb_deps_dbUnitConfigurer" class="org.garnishtest.modules.it.test_utils_dbunit.config.impl.NoOpDbUnitConfigurer" />
+
+    <util:list id="garnishStepsDb_cleanupScripts" value-type="org.springframework.core.io.Resource">
+        <value>classpath:META-INF/db/cleanup-test-db.sql</value>
+    </util:list>
+
+    <bean id="garnishStepsDb_dbScriptsExecutor" class="org.garnishtest.modules.generic.db_util.scripts.DbScriptsExecutor">
+        <constructor-arg name="dataSource" ref="garnishStepsDb_deps_dataSource" />
+    </bean>
+
+    <bean id="garnishStepsDb_dbUnitInserter" class="org.garnishtest.modules.it.test_utils_dbunit.insert.DbUnitInserter">
+        <constructor-arg name="dataSource" ref="garnishStepsDb_deps_dataSource" />
+        <constructor-arg name="dbUnitConfigurer" ref="garnishStepsDb_deps_dbUnitConfigurer" />
+    </bean>
+
+    <bean id="garnishStepsDb_dbUnitDatabaseComparer" class="org.garnishtest.modules.it.test_utils_dbunit.compare.database.DbUnitDatabaseComparer">
+        <constructor-arg name="dataSetComparer" ref="garnishStepsDb_dbUnitDataSetComparer" />
+
+        <constructor-arg name="dataSource" ref="garnishStepsDb_deps_dataSource" />
+        <constructor-arg name="dbUnitConfigurer" ref="garnishStepsDb_deps_dbUnitConfigurer" />
+    </bean>
+
+    <bean id="garnishStepsDb_dbUnitDataSetComparer" class="org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.DbUnitDataSetComparer">
+        <constructor-arg name="rowComparer" ref="garnishStepsDb_dbUnitRowComparer" />
+    </bean>
+
+    <bean id="garnishStepsDb_dbUnitRowComparer" class="org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.row_compare.DbUnitRowComparer">
+        <constructor-arg name="functionValueMatcher" ref="garnishFunctionValueMatcher_functionCaller" />
+    </bean>
+
+
+
+</beans>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mrc="http://www.garnish-test.org/schema/steps/restclient"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans                  http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.garnish-test.org/schema/steps/restclient    http://www.garnish-test.org/schema/steps/restclient.xsd
+       ">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:META-INF/spring/test-garnish-rest-client-beanDefinitionParser.properties"/>
+    </bean>
+
+    <bean id="abstractPreparer" abstract="true" class="org.garnishtest.steps.restclient.spring.TestRequestPreparer" />
+
+    <bean id="preparer_1" parent="abstractPreparer" c:name="preparer_1" />
+    <bean id="preparer_not_injected" parent="abstractPreparer" c:name="preparer_not_injected" />
+
+
+    <mrc:rest-client baseUrl="${test-garnish-rest-client-beanDefinitionParser.baseUrl}">
+        <mrc:request-preparers>
+            <mrc:request-preparer ref="${test-garnish-rest-client-beanDefinitionParser.preparer-bean-name-1}" />
+        </mrc:request-preparers>
+    </mrc:rest-client>
+
+</beans>
