@@ -4,6 +4,47 @@
 :icons:
 :numbered:
 
+==  What is Garnish and how it is organised
+Garnish is a collection of steps, mockservers, db tools and other functionality that are commonly used in BDD projects.
+This collection is split into 5 different deliverables:
+
+* Garnish steps db
+* Garnish steps mockhttpserver
+* Garnish steps restclient
+* Garnish steps selenium
+* Garnish steps vars
+
+=== Garnish steps db
+This deliverable contains a step library with which a db can be brought into a desired state, as well as steps with which the
+state of the db can be verified after running a step in a scenario. See <<Database state matching>> for more info.
+
+=== Garnish steps mockhttpserver
+Often it is desirable to mock the behaviour of third party systems when integration testing instead of calling those 3rd party systems.
+This deliverable contains steps to mock the request/response interaction, using wiremock.
+
+=== Garnish steps restclient
+This deliverable contains steps typically used when integration testing a rest library. Eg for doing a post to an endpoint with a JSON payload and specific headers.
+
+=== Garnish steps selenium
+TODO
+
+=== Garnish steps vars
+Often in a scenario the result of one step has to be used in a following step. To facilitate this, Garnish offers scenario variable functionality.
+See <<Story variables>>.
+
+== Getting started
+The best way to get started is looking at the demo project in this git repository under garnish-demo/garnish-demo-rest.
+There you will find two subprojects, garnish-demo-rest-web and garnish-demo-rest-test. The first is an example project and the
+second one the test project for the first one.
+
+=== Example web project
+TODO explain what the project is about.
+
+=== Testing the example project
+This project contains a pom.xml which can be used as a starting point when creating your own test project.
+You can run your test project as described in <<Running all the tests from command line>>
+
+
 == Features
 This section documents some features of the integration test framework which are not immediately obvious.
 
@@ -204,29 +245,31 @@ NoSuchMethodError: java.util.concurrent.ConcurrentHashMap.keySet()Ljava/util/con
 
 == Running all the tests from command line
 Just run the following command:
+
+Suppose that your integration tests live in a subdirectory called integration-test under your current directory:
 ....
 mvn clean verify -am -pl integration-test -DrunIntegrationTests
 ....
 
-The Serenity reports can be found at `integration-test/target/site/serenity/index.html`.
+The Cucumber reports can be found at `integration-test/target/cucumber/cucumber-html-report`.
 
-See also the shell scripts at `shell-scripts/<OS>`.
+See also the shell scripts at `garnish-demo/garnish-demo-rest-test/shell-scripts/<OS>`.
 
 
 
 == Setup IntelliJ
 
-=== Starting solr and rest-api webapps
+=== Starting your rest-api webapp
 
 ==== Run
-All the stories expect solr and rest-api to be already started (normally they are started by maven before running the tests).
-Before running an individual test from IntelliJ, you need to start solr and rest-api from command line:
+All the stories expect your rest-api to be running (normally they are started by maven before running the tests).
+Before running an individual test from IntelliJ, you need to your rest-api from command line, assuming your test project is called integration-test:
 ....
 mvn verify -am -pl integration-test -DrunIntegrationTests -DpauseBeforeTests
 ....
 
 The `pauseBeforeTests` system variable will cause Maven to stop just before running the tests. This is useful because
-now solr and rest-api webapps are started and accepting requests.
+now your rest-api is started and is accepting requests.
 
 ==== Debug + code reload using JDK's HotSwap
 If you want to be able to change rest-api java code and re-load the changes using Hotswap, just start maven in debug mode:
@@ -259,19 +302,16 @@ MAVEN_OPTS=-Xms256m -Xmx1024m -XX:MaxPermSize=384m -XXaltjvm=dcevm -javaagent:d:
 
 
 === Executing tests
-Once solr and rest-api are up and running, you can start executing tests from IntelliJ.
+Once your rest-api iss up and running, you can start executing tests from IntelliJ.
 
 To do this, create a JUnit run configuration with the following parameters:
 
-* class name: `nl.rabobank.myorder.integrationtest.RestApiTestSuite`
+* class name: `your.standard.package.structure.integrationtest.RestApiTestSuite`
 * working directory: `{full path to integration-test module}`
 * VM options:
     ** ports (required; they usually have the value given in this example, unless that port is already used on your local machine):
         *** `-Dtest.restApi.port=2000` to pass the port on which rest-api was deployed by maven
-        *** `-Dtest.mule.mockServer.port=2001` to pass the port reserved by maven for the mule HTTP mock server
-        *** `-Dtest.emailMockServer.smtp.port=2002` to pass the port reserved by maven for the email SMTP mock server
-        *** `-Dtest.emailMockServer.imap.port=2003` to pass the port reserved by maven for the email IMAP mock server
-    ** `-DstoryNamePattern=**/MyLittle.story` if you want to run only the ``MyLittle`` story (optional);
+    ** `-DstoryNamePattern=**/MyLittle.feature` if you want to run only the ``MyLittle`` story (optional);
       ant-like patterns are available
     ** if you want to pass all HTTP requests done in the test through an HTTP proxy (like Fiddler or Charles), add the
       following system variables (optional):
@@ -285,8 +325,6 @@ Example:
 ....
 -Dtest.restApi.port=2000
 -Dtest.mule.mockServer.port=2001
--Dtest.emailMockServer.smtp.port=2002
--Dtest.emailMockServer.imap.port=2003
 -Dhttp.proxyHost=127.0.0.1
 -Dhttp.proxyPort=8888
 -Dhttps.proxyHost=127.0.0.1
@@ -297,34 +335,35 @@ Example:
 
 
 === Seeing the reports
-IntelliJ gives a pretty good overview of the story: it shows in an hierarchical form the stories, each scenario of the story,
-and each step of a scenario. This is usually enough.
+When executing Cucumber feature files, IntelliJ gives a pretty good overview of all features: it shows in an hierarchical form the features, each scenario of a feature,
+and each step of a scenario. This is usually enough. From a step one can jump right into the correct location in a feature file.
 
-Because aggregating the Serenity reports is done with a maven plugin after the tests are executed, you won't be able
-to see the reports for tests executed IntelliJ immediately (because step 5 in the section "What maven does" is never
-executed).
+Because aggregating the cucumber reports is done with a maven plugin after the tests are executed, you won't be able
+to see the reports for tests executed in IntelliJ. This is because of the fact that step 5 in the section "What maven does" is never
+executed.
 
 
-== Creating integration tests (stories)
-The tests are written in given-when-then form, and they are executable JBehave tests.
+== Creating integration tests (features)
+The tests are written in given-when-then form, and they are executable Cucumber tests.
 These are human readable sentences
 
 The tests can be found at `integration-test/src/test/resources/stories/{capability}/{functionality}`.
 The `{capability}` and `{functionality}` are used to group stories in a hierarchy: a capability is a big component
 of the system (like "sidekick"), and contains one or more functionalities. A functionality contains one or more stories.
 
-IntelliJ has really nice support for JBehave story files.
-To get it, install the plugin named "JBehave Support".
-Note that there are multiple plugins for JBehave, so choose the one with the correct name - the others are not maintained.
+IntelliJ has really nice support for Cucumber feature files.
+To get it, install the plugin named "Cucumber for Java".
 
 The plugin give you the following really useful features:
 * syntax highlighting (including error highlighting for steps that don't exists)
 * code completion for steps
-* navigation from the step in the story to the Java code that implements that step
+* navigation from the step into the feature file and from there to the Java code that implements that step
 
 
 == When to use "given", "when, and "then"
-The JBehave steps can be declared as "Given", "When", or "Then" and JBehave will run them anyway.
+TODO update
+
+Cucumber steps can be declared as "Given", "When", or "Then".
 The guidelines for choosing one of them is:
 
 * if it's not part of the test, but rather a *precondition* (e.g. being logged in, or having the DB in a particular state),
@@ -340,11 +379,9 @@ Then the result of the action should be X
 ....
 
 == Further documentation
-Serenity (reporting, nice Selenium integration, etc.):
-    http://www.thucydides.info/docs/serenity/
 
-JBehave (the nice .story syntax in BDD terms):
-    http://jbehave.org/
+Cucumber
+    https://cucumber.io/
 
 For long stories, set the maximum execution time with this parameter:
     `-Dstory.timeout.in.secs=<number seconds>` (i.e. `-Dstory.timeout.in.secs=3000`).
