@@ -86,6 +86,32 @@ public class RestClientCallSteps {
         this.responseManager.setResponse(response);
     }
 
+    @When("^I call '(POST|PUT|PATCH)' on '(.+)' with JSON from '(.+)' and previously provided headers$")
+    public void callMethodOnUrlWithJsonBodyAndHeaders(
+            @NonNull final HttpMethod method,
+            @NonNull final String url,
+            @NonNull final String jsonReqBodyFile
+    ) {
+        String jsonBody = ClasspathUtils.loadFromClasspath(ResourceFilesVariables.getResourceFilesPrefix() + jsonReqBodyFile);
+
+        jsonBody = ScenarioUserVariables.resolveInText(jsonBody, ValueEscapers.json());
+        jsonBody = JsonUtils.makeValidJson(jsonBody);
+
+        HttpRequestBuilder requestBuilder = this.httpClient.request(method, url);
+
+        final Map<String, String> requestHeaders = PREPARED_HEADERS.getValue();
+        if (requestHeaders != null) {
+            for (final Map.Entry<String, String> entry : requestHeaders.entrySet()) {
+                requestBuilder = requestBuilder.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
+        requestBuilder = requestBuilder.body(jsonBody, ContentType.APPLICATION_JSON);
+
+        final HttpResponse response = requestBuilder.execute();
+
+        this.responseManager.setResponse(response);
+    }
+
     @When("^I call '(PUT|POST|PATCH)' on '(.+)' with JSON from '(.+)'$")
     public void callMethodOnUrlWithJsonBody(
             @NonNull final HttpMethod method,
