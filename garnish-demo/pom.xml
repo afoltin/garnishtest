@@ -26,7 +26,6 @@
         <maven.compiler.debug>true</maven.compiler.debug>
 
         <!-- versions -->
-        <pmd.version>5.4.1</pmd.version>
     </properties>
 
     <build>
@@ -248,140 +247,6 @@
                     </executions>
                 </plugin>
 
-                <!-- PMD -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-pmd-plugin</artifactId>
-                    <version>3.6</version>
-
-                    <executions>
-                        <execution>
-                            <id>default-cli</id>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>check-pmd</id>
-                            <goals>
-                                <goal>check</goal>
-                                <goal>cpd-check</goal>
-                            </goals>
-                            <phase>prepare-package</phase>
-                        </execution>
-                    </executions>
-
-                    <configuration>
-                        <failOnViolation>true</failOnViolation>
-                        <failurePriority>5</failurePriority>
-                        <printFailingErrors>true</printFailingErrors>
-                        <verbose>true</verbose>
-                        <linkXRef>false</linkXRef>
-                        <format>xml</format>
-                        <indentSize>4</indentSize>
-                        <rulesets>
-                            <ruleset>${project.rootDirectory}/maven/pmd/pmd-rules.xml</ruleset>
-                        </rulesets>
-                        <targetJdk>${maven.compiler.target}</targetJdk>
-                    </configuration>
-
-                    <dependencies>
-                        <!-- pmd -->
-                        <dependency>
-                            <groupId>net.sourceforge.pmd</groupId>
-                            <artifactId>pmd-core</artifactId>
-                            <version>${pmd.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>net.sourceforge.pmd</groupId>
-                            <artifactId>pmd-java</artifactId>
-                            <version>${pmd.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>net.sourceforge.pmd</groupId>
-                            <artifactId>pmd-javascript</artifactId>
-                            <version>${pmd.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>net.sourceforge.pmd</groupId>
-                            <artifactId>pmd-jsp</artifactId>
-                            <version>${pmd.version}</version>
-                        </dependency>
-
-                    </dependencies>
-                </plugin>
-
-                <!-- checkstyle -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.17</version>
-
-                    <configuration>
-                        <configLocation>${project.rootDirectory}/maven/checkstyle/checkstyle-rules.xml</configLocation>
-                        <encoding>UTF-8</encoding>
-                        <consoleOutput>true</consoleOutput>
-                        <logViolationsToConsole>true</logViolationsToConsole>
-                        <failOnViolation>true</failOnViolation>
-                        <linkXRef>false</linkXRef>
-                    </configuration>
-
-                    <executions>
-                        <execution>
-                            <id>default-cli</id>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>check-checkstyle</id>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                            <phase>prepare-package</phase>
-                        </execution>
-                    </executions>
-
-                    <dependencies>
-                        <!-- checkstyle -->
-                        <dependency>
-                            <groupId>com.puppycrawl.tools</groupId>
-                            <artifactId>checkstyle</artifactId>
-                            <version>6.14.1</version>
-                        </dependency>
-
-                    </dependencies>
-                </plugin>
-
-                <!-- findbugs -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>3.0.3</version>
-
-                    <configuration>
-                        <effort>max</effort>
-                        <threshold>Low</threshold>
-                        <excludeFilterFile>${project.rootDirectory}/maven/findbugs/findbugs-exclude.xml</excludeFilterFile>
-                    </configuration>
-
-                    <executions>
-                        <execution>
-                            <id>default-cli</id>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>check-findbugs</id>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                            <phase>prepare-package</phase>
-                        </execution>
-                    </executions>
-                </plugin>
-
                 <!-- build-helper-maven-plugin-->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -468,11 +333,6 @@
                                     <requireSameVersions>
                                         <dependencies>
                                             <dependency>org.slf4j:*</dependency>
-                                        </dependencies>
-                                    </requireSameVersions>
-                                    <requireSameVersions>
-                                        <dependencies>
-                                            <dependency>net.sourceforge.pmd:*</dependency>
                                         </dependencies>
                                     </requireSameVersions>
                                     <requireSameVersions>

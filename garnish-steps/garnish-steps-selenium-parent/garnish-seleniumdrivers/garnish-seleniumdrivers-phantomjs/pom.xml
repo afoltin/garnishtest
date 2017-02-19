@@ -54,6 +54,10 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.errorprone</groupId>
+            <artifactId>error_prone_annotations</artifactId>
+        </dependency>
 
         <!-- commons-lang3 - should only be used for things not in guava-->
         <dependency>

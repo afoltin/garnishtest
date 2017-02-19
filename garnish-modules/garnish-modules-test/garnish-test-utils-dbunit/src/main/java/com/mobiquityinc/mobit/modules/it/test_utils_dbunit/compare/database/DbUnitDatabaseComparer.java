@@ -16,6 +16,7 @@ import org.springframework.core.io.Resource;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -80,7 +81,8 @@ public final class DbUnitDatabaseComparer {
                                            @NonNull final IDataSet databaseDataSet,
                                            @NonNull final VariablesResolver variablesResolver) throws IOException, DataSetException {
         final String expectedXmlContent = IOUtils.toString(
-                expectedXmlDataSetResource.getInputStream()
+                expectedXmlDataSetResource.getInputStream(),
+                StandardCharsets.UTF_8
         );
 
         final String expectedXmlContentWithVariablesResolved = variablesResolver.resolveVariablesInText(
