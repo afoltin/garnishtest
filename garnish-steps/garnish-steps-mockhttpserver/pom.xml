@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.mobiquityinc.mobit</groupId>
+        <artifactId>garnish-steps</artifactId>
+        <version>0.17-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>garnish-steps-mockhttpserver</artifactId>
+    <name>${project.artifactId}</name>
+
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.rootDirectory>${project.basedir}/../..</project.rootDirectory>
+    </properties>
+
+
+    <dependencies>
+
+        <!--==================== internal modules ====================-->
+
+        <!-- garnish-steps-vars -->
+        <dependency>
+            <groupId>com.mobiquityinc.mobit</groupId>
+            <artifactId>garnish-steps-vars</artifactId>
+        </dependency>
+
+        <!-- garnish-jaxb -->
+        <dependency>
+            <groupId>com.mobiquityinc.mobit</groupId>
+            <artifactId>garnish-jaxb</artifactId>
+        </dependency>
+
+        <!-- garnish-spring-utils -->
+        <dependency>
+            <groupId>com.mobiquityinc.mobit</groupId>
+            <artifactId>garnish-spring-utils</artifactId>
+        </dependency>
+
+        <!-- garnish-test-utils-json -->
+        <dependency>
+            <groupId>com.mobiquityinc.mobit</groupId>
+            <artifactId>garnish-test-utils-json</artifactId>
+        </dependency>
+
+
+        <!--==================== 3rd party dependencies ====================-->
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Nullable/Nonnull annotations -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+
+        <!-- wiremock: http mock server -->
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-standalone</artifactId>
+        </dependency>
+
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+
+        <!-- cucumber -->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+</project>

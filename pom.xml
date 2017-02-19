@@ -11,48 +11,30 @@
 
     <packaging>pom</packaging>
 
-    <organization>
-        <name>Mobiquity Inc.</name>
-        <url>https://www.mobiquityinc.com/</url>
-    </organization>
-
-    <url>https://mobiquity.jira.com/wiki/display/MOBIT/Mobit+Home</url>
+    <url>https://garnish-test.github.io/</url>
 
     <scm>
-        <connection>https://github.com/Mobiquity/mobit.git</connection>
-        <developerConnection>scm:git:git@github.com:Mobiquity/mobit.git</developerConnection>
-        <url>https://github.com/Mobiquity/mobit.git</url>
+        <connection>git@github.com:garnish-test/garnish.git</connection>
+        <developerConnection>scm:git:git@github.com:garnish-test/garnish.git</developerConnection>
+        <url>https://github.com/garnish-test/garnish</url>
         <tag>HEAD</tag>
     </scm>
 
     <ciManagement>
-        <system>Jenkins</system>
-        <url>https://jenkins.eu.mobproto.com/</url>
+        <system>Travis CI</system>
+        <url>https://travis-ci.org/garnish-test/garnish</url>
     </ciManagement>
 
     <issueManagement>
-        <system>JIRA</system>
-        <url>https://mobiquity.jira.com/projects/MOBIT</url>
+        <system>GitHub Issues</system>
+        <url>https://github.com/garnish-test/garnish/issues</url>
     </issueManagement>
 
-    <distributionManagement>
-        <repository>
-            <id>Mobiquity</id>
-            <name>Mobiquity</name>
-            <url>http://nexus.mobiquityinc.com/nexus/content/repositories/xaton</url>
-        </repository>
-        <snapshotRepository>
-            <id>xaton-snapshot</id>
-            <name>Xaton Snapshots</name>
-            <url>http://nexus.mobiquityinc.com/nexus/content/repositories/xaton-snapshot</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <modules>
-        <module>mobit-bom</module>
-        <module>mobit-maven-plugins</module>
-        <module>mobit-modules</module>
-        <module>mobit-steps</module>
+        <module>garnish-bom</module>
+        <module>garnish-maven-plugins</module>
+        <module>garnish-modules</module>
+        <module>garnish-steps</module>
     </modules>
 
     <properties>
@@ -94,108 +76,108 @@
 
             <!--~~~~~~~~~~ steps modules ~~~~~~~~~~-->
 
-            <!-- mobit-steps-vars -->
+            <!-- garnish-steps-vars -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-steps-vars</artifactId>
+                <artifactId>garnish-steps-vars</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- mobit-steps-db -->
+            <!-- garnish-steps-db -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-steps-db</artifactId>
+                <artifactId>garnish-steps-db</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- mobit-steps-restclient -->
+            <!-- garnish-steps-restclient -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-steps-restclient</artifactId>
+                <artifactId>garnish-steps-restclient</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
 
             <!--~~~~~~~~~~ generic modules ~~~~~~~~~~-->
 
-            <!-- mobit-mobit-db-utils -->
+            <!-- garnish-garnish-db-utils -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-db-utils</artifactId>
+                <artifactId>garnish-db-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- mobit-exception-utils -->
+            <!-- garnish-exception-utils -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-exception-utils</artifactId>
+                <artifactId>garnish-exception-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- mobit-function-value-matcher -->
+            <!-- garnish-function-value-matcher -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-function-value-matcher</artifactId>
+                <artifactId>garnish-function-value-matcher</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- mobit-httpclient -->
+            <!-- garnish-httpclient -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-httpclient</artifactId>
+                <artifactId>garnish-httpclient</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- mobit-uri -->
+            <!-- garnish-uri -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-uri</artifactId>
+                <artifactId>garnish-uri</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- mobit-jaxb -->
+            <!-- garnish-jaxb -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-jaxb</artifactId>
+                <artifactId>garnish-jaxb</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- mobit-spring-utils -->
+            <!-- garnish-spring-utils -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-spring-utils</artifactId>
+                <artifactId>garnish-spring-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- mobit-variables-resolver -->
+            <!-- garnish-variables-resolver -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-variables-resolver</artifactId>
+                <artifactId>garnish-variables-resolver</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- mobit-seleniumdrivers-utils -->
+            <!-- garnish-seleniumdrivers-utils -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-seleniumdrivers-utils</artifactId>
+                <artifactId>garnish-seleniumdrivers-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
 
             <!--~~~~~~~~~~ test modules ~~~~~~~~~~-->
 
-            <!-- mobit-test-utils-dbunit -->
+            <!-- garnish-test-utils-dbunit -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-test-utils-dbunit</artifactId>
+                <artifactId>garnish-test-utils-dbunit</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- todo: this module looks generic (at lease move the generic parsing part to a mobit-json-utils module) -->
-            <!-- mobit-test-utils-json -->
+            <!-- todo: this module looks generic (at lease move the generic parsing part to a garnish-json-utils module) -->
+            <!-- garnish-test-utils-json -->
             <dependency>
                 <groupId>com.mobiquityinc.mobit</groupId>
-                <artifactId>mobit-test-utils-json</artifactId>
+                <artifactId>garnish-test-utils-json</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -636,7 +618,7 @@
 
             <!--
                 commons-codec - solve conflict between:
-                - mobit-uri                  => uses 1.10
+                - garnish-uri                  => uses 1.10
                 - httpclient                 => uses 1.9
                 - dbunit -> poi-ooxml -> poi => uses 1.9
             -->
@@ -1275,7 +1257,7 @@
 
             <!-- the documentation is only build in the "production" profile because it takes too long to run -->
             <modules>
-                <module>mobit-documentation</module>
+                <module>garnish-documentation</module>
             </modules>
 
             <build>
