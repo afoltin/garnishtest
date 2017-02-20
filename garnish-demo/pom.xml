@@ -13,6 +13,7 @@
 
     <modules>
         <module>garnish-demo-rest-complex</module>
+        <module>garnish-demo-rest-simple</module>
     </modules>
 
     <properties>

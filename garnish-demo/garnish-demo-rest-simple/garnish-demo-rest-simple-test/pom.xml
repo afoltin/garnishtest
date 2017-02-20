@@ -5,11 +5,11 @@
 
     <parent>
         <groupId>org.garnishtest</groupId>
-        <artifactId>garnish-demo-rest-complex</artifactId>
+        <artifactId>garnish-demo-rest-simple</artifactId>
         <version>0.17-SNAPSHOT</version>
     </parent>
 
-    <artifactId>garnish-demo-rest-complex-test</artifactId>
+    <artifactId>garnish-demo-rest-simple-test</artifactId>
     <name>${project.artifactId}</name>
 
     <packaging>jar</packaging>
@@ -31,24 +31,6 @@
     <dependencies>
 
         <!--==================== garnish ====================-->
-
-        <!-- garnish-steps-vars -->
-        <dependency>
-            <groupId>org.garnishtest</groupId>
-            <artifactId>garnish-steps-vars</artifactId>
-        </dependency>
-
-        <!-- garnish-steps-db -->
-        <dependency>
-            <groupId>org.garnishtest</groupId>
-            <artifactId>garnish-steps-db</artifactId>
-        </dependency>
-
-        <!-- garnish-steps-mockhttpserver -->
-        <dependency>
-            <groupId>org.garnishtest</groupId>
-            <artifactId>garnish-steps-mockhttpserver</artifactId>
-        </dependency>
 
         <!-- garnish-steps-restclient -->
         <dependency>
@@ -113,17 +95,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-        </dependency>
-
-        <!-- h2 -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
         </dependency>
 
     </dependencies>
@@ -197,9 +169,6 @@
                                         <portName>ports.cargo.servlet</portName>
                                         <portName>ports.cargo.ajp</portName>
                                         <portName>ports.cargo.rmi</portName>
-                                        <portName>ports.h2.server</portName>
-                                        <portName>ports.h2.webConsole</portName>
-                                        <portName>ports.test.googleGeocodeMockServer</portName>
                                     </portNames>
                                 </configuration>
                             </execution>
@@ -225,16 +194,6 @@
 
                                 <systemProperties>
                                     <!--~~~~~~~~~~ system properties used by the webapp ~~~~~~~~~~-->
-                                    <h2Server.port>${ports.h2.server}</h2Server.port>
-                                    <h2WebConsole.port>${ports.h2.webConsole}</h2WebConsole.port>
-                                    <!-- connect the webapp to the google geo-coding mock server that is started by the tests -->
-                                    <googleGeocodeApi.baseUrl>http://127.0.0.1:${ports.test.googleGeocodeMockServer}</googleGeocodeApi.baseUrl>
-
-
-                                    <!--~~~~~~~~~~ connect the webapp to servers started by the test ~~~~~~~~~~-->
-                                    <!-- the tests should start the google geo-coding mock server on this port -->
-                                    <test.googleGeocodeMockServer.port>${ports.test.googleGeocodeMockServer}</test.googleGeocodeMockServer.port>
-
                                     <!--~~~~~~~~~~ system properties used by all ~~~~~~~~~~-->
                                     <http.proxyHost>${http.proxyHost}</http.proxyHost>
                                     <http.proxyPort>${http.proxyPort}</http.proxyPort>
@@ -255,7 +214,7 @@
                             <deployables>
                                 <deployable>
                                     <type>war</type>
-                                    <location>${project.basedir}/../garnish-demo-rest-complex-web/target/garnish-demo-rest-complex-web-${project.version}</location>
+                                    <location>${project.basedir}/../garnish-demo-rest-simple-web/target/garnish-demo-rest-simple-web-${project.version}</location>
                                     <properties>
                                         <context>/</context>
                                     </properties>
@@ -330,9 +289,7 @@
                             <forkCount>0</forkCount>
 
                             <systemPropertyVariables>
-                                <h2Server.port>${ports.h2.server}</h2Server.port>
                                 <test.webapp.port>${ports.cargo.servlet}</test.webapp.port>
-                                <test.googleGeocodeMockServer.port>${ports.test.googleGeocodeMockServer}</test.googleGeocodeMockServer.port>
                             </systemPropertyVariables>
 
                             <includes>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="100 milliseconds">
+
+    <property name="short_log_pattern" value="%d{HH:mm:ss.SSS} [%-5level] %-17thread %-30.30logger{30} - %msg%n" />
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>${short_log_pattern}</Pattern>
+        </encoder>
+    </appender>
+
+
+    <!--========== Spring ==========-->
+    <logger name="org.springframework" level="INFO" />
+
+
+    <root>
+        <level value="INFO" />
+
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>

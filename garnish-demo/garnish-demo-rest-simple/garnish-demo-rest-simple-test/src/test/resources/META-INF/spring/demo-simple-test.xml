@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mrc="http://www.garnish-test.org/schema/steps/restclient"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans            http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.garnish-test.org/schema/steps/restclient    http://www.garnish-test.org/schema/steps/restclient.xsd
+       ">
+
+    <bean id="demoTest_propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:demo-simple-test.properties"/>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    </bean>
+
+
+    <import resource="classpath:META-INF/spring/garnish-steps-restclient.xml" />
+
+    <mrc:rest-client baseUrl="${test.webapp.baseUrl}"
+                     connectionTimeoutMillis="${test.webapp.connectionTimeoutMillis}"
+                     socketTimeoutMillis="${test.webapp.socketTimeoutMillis}"
+                     maxConnections="${test.webapp.maxConnections}" />
+
+
+</beans>
