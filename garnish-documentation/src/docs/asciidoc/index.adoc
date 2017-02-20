@@ -30,7 +30,7 @@ TODO
 
 === Garnish steps vars
 Often in a scenario the result of one step has to be used in a following step. To facilitate this, Garnish offers scenario variable functionality.
-See <<Story variables>>.
+See <<Scenario variables>>.
 
 == Getting started
 The best way to get started is looking at the demo project in this git repository under garnish-demo/garnish-demo-rest.
@@ -59,7 +59,7 @@ This allows us to document the data in those files, making the integration tests
 and also easier to fix when they fail.
 
 
-=== Story variables
+=== Scenario variables
 Sometimes you need to do an HTTP call that includes data from a previous step, and this data is dynamic.
 
 Take for example a paswordless login feature.
@@ -68,10 +68,10 @@ to obtain an authorization authToken.
 In this case, the integration test needs to make the first call, read the PIN from the email, save it to a variable,
 and use this variable in the request body of the second call.
 
-For this reason, the framework supports "story variables" that can be set in one step and then used in another.
-Story variables are cleared after each story.
+For this reason, the framework supports "scenario variables" that can be set in one step and then used in another.
+Scenario variables are cleared after each scenario.
 
-The syntax by which you tell the framework that you need the value of a story variable is `${variableName}`.
+The syntax by which you tell the framework that you need the value of a scenario variable is `${variableName}`.
 These variables can be referred to by that syntax from:
 
 * initial and expected *.http.json HTTP request/response files
@@ -223,9 +223,9 @@ As seen from the example above, the syntax for placeholders is `%{placeholderNam
         ... start the mock email server (to verify emails)
         ... connect through HTTP to rest-api and call endpoints
         ... make verifications (email, rest-api HTTP responses, etc.)
-        ... as the tests runs, Serenity will record what has been running, success or not, etc.
+        ... as the tests runs, Cucumber will record what has been running, success or not, etc.
 . stops the servlet container
-. finish creating reports at `"integration-test/target/site/serenity/index.html"`, using data recorded during tests (report aggregation)
+. finish creating reports at `"integration-test/target/cucumber/cucumber-html-report"`, using data recorded during tests (report aggregation)
 . if there were test failures, fail the build
 
 Here is how it all works together:
@@ -311,7 +311,7 @@ To do this, create a JUnit run configuration with the following parameters:
 * VM options:
     ** ports (required; they usually have the value given in this example, unless that port is already used on your local machine):
         *** `-Dtest.restApi.port=2000` to pass the port on which rest-api was deployed by maven
-    ** `-DstoryNamePattern=**/MyLittle.feature` if you want to run only the ``MyLittle`` story (optional);
+    ** `-DstoryNamePattern=**/MyLittle.feature` if you want to run only the ``MyLittle`` feature (optional);
       ant-like patterns are available
     ** if you want to pass all HTTP requests done in the test through an HTTP proxy (like Fiddler or Charles), add the
       following system variables (optional):
@@ -330,7 +330,7 @@ Example:
 -Dhttps.proxyHost=127.0.0.1
 -Dhttps.proxyPort=8888
 -Dhttp.nonProxyHosts=
--DstoryNamePattern=**/GroupLogin.story
+-DstoryNamePattern=**/GroupLogin.feature
 ....
 
 
@@ -347,7 +347,7 @@ executed.
 The tests are written in given-when-then form, and they are executable Cucumber tests.
 These are human readable sentences
 
-The tests can be found at `integration-test/src/test/resources/stories/{capability}/{functionality}`.
+The tests can be found at `integration-test/src/test/resources/features/{capability}/{functionality}`.
 The `{capability}` and `{functionality}` are used to group stories in a hierarchy: a capability is a big component
 of the system (like "sidekick"), and contains one or more functionalities. A functionality contains one or more stories.
 
