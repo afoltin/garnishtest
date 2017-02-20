@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.garnishtest</groupId>
+        <artifactId>garnish-demo-rest-complex</artifactId>
+        <version>0.17-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>garnish-demo-rest-complex-test</artifactId>
+    <name>${project.artifactId}</name>
+
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.rootDirectory>${project.basedir}/../../..</project.rootDirectory>
+
+        <!--
+            these can be overridden from command line if you want to see the rest-api calls in a debugging proxy, like Fiddler or Charles
+        -->
+        <http.proxyHost />
+        <http.proxyPort />
+        <https.proxyHost />
+        <https.proxyPort />
+        <http.nonProxyHosts>*</http.nonProxyHosts>
+    </properties>
+
+
+    <dependencies>
+
+        <!--==================== garnish ====================-->
+
+        <!-- garnish-steps-vars -->
+        <dependency>
+            <groupId>org.garnishtest</groupId>
+            <artifactId>garnish-steps-vars</artifactId>
+        </dependency>
+
+        <!-- garnish-steps-db -->
+        <dependency>
+            <groupId>org.garnishtest</groupId>
+            <artifactId>garnish-steps-db</artifactId>
+        </dependency>
+
+        <!-- garnish-steps-mockhttpserver -->
+        <dependency>
+            <groupId>org.garnishtest</groupId>
+            <artifactId>garnish-steps-mockhttpserver</artifactId>
+        </dependency>
+
+        <!-- garnish-steps-restclient -->
+        <dependency>
+            <groupId>org.garnishtest</groupId>
+            <artifactId>garnish-steps-restclient</artifactId>
+        </dependency>
+
+
+        <!--==================== 3rd party dependencies ====================-->
+
+        <!-- logback - slf4j implementation -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- cucumber -->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-spring</artifactId>
+        </dependency>
+
+
+        <!--==================== test dependencies ==================== -->
+
+        <!-- junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- routes JCL (Jakarta Commons Logging, ie. "commons-logging") over SLF4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+
+        <!-- h2 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+
+    </dependencies>
+
+
+    <profiles>
+        <!-- skip-integration-tests -->
+        <profile>
+            <id>skip-integration-tests</id>
+            <activation>
+                <property>
+                    <name>!runIntegrationTests</name>
+                </property>
+            </activation>
+
+            <build>
+                <plugins>
+                    <!-- failsafe -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.19.1</version>
+
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>run-integration-tests</id>
+            <activation>
+                <property>
+                    <name>runIntegrationTests</name>
+                </property>
+            </activation>
+
+            <build>
+                <plugins>
+                    <!-- surefire -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.19.1</version>
+                        <configuration>
+                            <!-- using failsafe instead, so we can fail the build after the server is shutdown and the reports are created -->
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+
+                    <!-- find free network ports for deploying webapps with cargo -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.10</version>
+
+                        <executions>
+                            <execution>
+                                <id>reserve-ports</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>reserve-network-port</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- make sure we choose a port usable by a non-root user -->
+                                    <minPortNumber>2000</minPortNumber>
+
+                                    <portNames>
+                                        <portName>ports.cargo.servlet</portName>
+                                        <portName>ports.cargo.ajp</portName>
+                                        <portName>ports.cargo.rmi</portName>
+                                        <portName>ports.h2.server</portName>
+                                        <portName>ports.h2.webConsole</portName>
+                                        <portName>ports.test.googleGeocodeMockServer</portName>
+                                    </portNames>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- cargo: deploy webapp -->
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <version>1.4.18</version>
+
+                        <configuration>
+                            <container>
+                                <containerId>tomcat8x</containerId>
+                                <timeout>300000</timeout>
+
+                                <artifactInstaller>
+                                    <groupId>org.apache.tomcat</groupId>
+                                    <artifactId>tomcat</artifactId>
+                                    <version>8.0.32</version>
+                                </artifactInstaller>
+
+                                <systemProperties>
+                                    <!--~~~~~~~~~~ system properties used by the webapp ~~~~~~~~~~-->
+                                    <h2Server.port>${ports.h2.server}</h2Server.port>
+                                    <h2WebConsole.port>${ports.h2.webConsole}</h2WebConsole.port>
+                                    <!-- connect the webapp to the google geo-coding mock server that is started by the tests -->
+                                    <googleGeocodeApi.baseUrl>http://127.0.0.1:${ports.test.googleGeocodeMockServer}</googleGeocodeApi.baseUrl>
+
+
+                                    <!--~~~~~~~~~~ connect the webapp to servers started by the test ~~~~~~~~~~-->
+                                    <!-- the tests should start the google geo-coding mock server on this port -->
+                                    <test.googleGeocodeMockServer.port>${ports.test.googleGeocodeMockServer}</test.googleGeocodeMockServer.port>
+
+                                    <!--~~~~~~~~~~ system properties used by all ~~~~~~~~~~-->
+                                    <http.proxyHost>${http.proxyHost}</http.proxyHost>
+                                    <http.proxyPort>${http.proxyPort}</http.proxyPort>
+                                    <https.proxyHost>${https.proxyHost}</https.proxyHost>
+                                    <https.proxyPort>${https.proxyPort}</https.proxyPort>
+                                    <http.nonProxyHosts>${http.nonProxyHosts}</http.nonProxyHosts>
+                                </systemProperties>
+                            </container>
+
+                            <configuration>
+                                <properties>
+                                    <cargo.servlet.port>${ports.cargo.servlet}</cargo.servlet.port>
+                                    <cargo.tomcat.ajp.port>${ports.cargo.ajp}</cargo.tomcat.ajp.port>
+                                    <cargo.rmi.port>${ports.cargo.rmi}</cargo.rmi.port>
+                                </properties>
+                            </configuration>
+
+                            <deployables>
+                                <deployable>
+                                    <type>war</type>
+                                    <location>${project.basedir}/../garnish-demo-rest-complex-web/target/garnish-demo-rest-complex-web-${project.version}</location>
+                                    <properties>
+                                        <context>/</context>
+                                    </properties>
+                                </deployable>
+                            </deployables>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>it-start-cargo</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>it-stop-cargo</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- pause before tests -->
+                    <plugin>
+                        <groupId>org.garnishtest</groupId>
+                        <artifactId>pause-maven-plugin</artifactId>
+                        <version>${garnish.version}</version>
+
+                        <executions>
+                            <execution>
+                                <id>pause-before-tests</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>pause</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- cucumber reports -->
+                    <plugin>
+                        <groupId>org.garnishtest</groupId>
+                        <artifactId>cucumber-reports-maven-plugin</artifactId>
+                        <version>${garnish.version}</version>
+
+                        <configuration>
+                            <inputFile>${project.basedir}/target/cucumber/cucumber-results.json</inputFile>
+                            <outputDirectory>${project.basedir}/target/cucumber/cucumber-html-report</outputDirectory>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>generate-cucumber-reports</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>generate-reports</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- failsafe -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.19.1</version>
+
+                        <configuration>
+                            <forkCount>0</forkCount>
+
+                            <systemPropertyVariables>
+                                <h2Server.port>${ports.h2.server}</h2Server.port>
+                                <test.webapp.port>${ports.cargo.servlet}</test.webapp.port>
+                                <test.googleGeocodeMockServer.port>${ports.test.googleGeocodeMockServer}</test.googleGeocodeMockServer.port>
+                            </systemPropertyVariables>
+
+                            <includes>
+                                <include>**/IntegrationTests.java</include>
+                            </includes>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>run-web-integration-tests</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                            </execution>
+
+                            <execution>
+                                <id>verify-web-integration-tests</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+</project>

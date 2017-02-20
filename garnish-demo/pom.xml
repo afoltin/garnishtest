@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>garnish-demo-rest</module>
+        <module>garnish-demo-rest-complex</module>
     </modules>
 
     <properties>
