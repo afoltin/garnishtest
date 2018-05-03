@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.garnishtest</groupId>
         <artifactId>garnish-maven-plugins</artifactId>
-        <version>0.17-SNAPSHOT</version>
+        <version>0.0.20</version>
     </parent>
 
     <artifactId>cucumber-reports-maven-plugin</artifactId>

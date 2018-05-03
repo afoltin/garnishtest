@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.garnishtest</groupId>
         <artifactId>garnish</artifactId>
-        <version>0.17-SNAPSHOT</version>
+        <version>0.0.20</version>
     </parent>
 
     <artifactId>garnish-bom</artifactId>
