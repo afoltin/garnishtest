@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.garnishtest</groupId>
         <artifactId>garnish-modules-test</artifactId>
-        <version>0.0.20</version>
+        <version>0.0.21</version>
     </parent>
 
     <artifactId>garnish-test-utils-dbunit</artifactId>
