@@ -1,6 +1,6 @@
 # Garnish
 
-[![Travis](https://img.shields.io/travis/garnish-test/garnish/develop.svg?maxAge=300)](https://travis-ci.org/garnish-test/garnish)
+[![Travis](https://img.shields.io/travis/garnishtest/garnishtest/develop.svg?maxAge=300)](https://travis-ci.org/garnish-test/garnish)
 
 Garnish is a suite of Cucumber steps & supporting code that makes is really easy to create acceptance tests for:
 - REST web services
