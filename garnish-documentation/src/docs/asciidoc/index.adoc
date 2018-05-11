@@ -386,3 +386,7 @@ Cucumber
 For long stories, set the maximum execution time with this parameter:
     `-Dstory.timeout.in.secs=<number seconds>` (i.e. `-Dstory.timeout.in.secs=3000`).
 It is however preferable to split up stories into multiple smaller stories if possible.
+
+== License
+
+Garnish it licensed under the http://www.apache.org/licenses/LICENSE-2.0[Apache 2.0] license terms.

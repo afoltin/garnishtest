@@ -16,3 +16,7 @@ Garnish is a suite of Cucumber steps & supporting code that makes is really easy
 Garnish started as an internal project at [Mobiquity Inc.](https://www.mobiquityinc.com/) to make it easy to create acceptance tests in order to insure the quality of the projects developed there.
 
 Special thanks goes to them for agreeing to open-source this project.
+
+## License
+
+Garnish it licensed under [Apache 2.0](LICENSE) license terms.
