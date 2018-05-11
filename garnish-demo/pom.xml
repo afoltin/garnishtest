@@ -5,7 +5,7 @@
 
     <groupId>org.garnishtest</groupId>
     <artifactId>garnish-demo</artifactId>
-    <version>0.0.21</version>
+    <version>0.0.22-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
 
