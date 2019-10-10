@@ -52,12 +52,7 @@ public class DbScriptsExecutor {
     public void executeScripts(@NonNull final VariablesResolver variablesResolver,
                                @NonNull final List<? extends Resource> sqlScriptResources) throws DbScriptsExecutorException {
         try {
-            this.transactionTemplate.executeInTransaction(new DatabaseAction() {
-                @Override
-                public void doInTransaction(final Connection connection) {
-                    DbScriptsExecutor.this.executeScripts(connection, variablesResolver, sqlScriptResources);
-                }
-            });
+            this.transactionTemplate.executeInTransaction(connection -> DbScriptsExecutor.this.executeScripts(connection, variablesResolver, sqlScriptResources));
         } catch (final Exception e) {
             throw new DbScriptsExecutorException(
                     "failed to execute SQL scripts [" + sqlScriptResources + "]" +
