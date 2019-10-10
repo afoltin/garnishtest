@@ -17,7 +17,7 @@
 
 package org.garnishtest.demo.rest_complex.web.dao.model;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 
@@ -53,6 +53,6 @@ public final class AuthToken {
 
     @Override
     public String toString() {
-        return ReflectionToStringBuilder.reflectionToString(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 }

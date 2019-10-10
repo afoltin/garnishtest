@@ -18,7 +18,7 @@
 package org.garnishtest.demo.rest_complex.web.dao.model;
 
 import lombok.NonNull;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -45,7 +45,7 @@ public final class TodoList {
 
     @Override
     public String toString() {
-        return ReflectionToStringBuilder.reflectionToString(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

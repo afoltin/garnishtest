@@ -20,7 +20,7 @@ package org.garnishtest.demo.rest_complex.web.web.controllers.auth_tokens.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.NonNull;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -42,7 +42,7 @@ public final class CreateTokenRequest {
 
     @Override
     public String toString() {
-        return ReflectionToStringBuilder.reflectionToString(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

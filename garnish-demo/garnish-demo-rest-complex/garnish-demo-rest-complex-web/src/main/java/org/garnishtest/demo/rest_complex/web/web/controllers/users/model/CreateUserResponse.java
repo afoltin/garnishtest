@@ -19,7 +19,7 @@ package org.garnishtest.demo.rest_complex.web.web.controllers.users.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public final class CreateUserResponse {
 
@@ -36,7 +36,7 @@ public final class CreateUserResponse {
 
     @Override
     public String toString() {
-        return ReflectionToStringBuilder.reflectionToString(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }
