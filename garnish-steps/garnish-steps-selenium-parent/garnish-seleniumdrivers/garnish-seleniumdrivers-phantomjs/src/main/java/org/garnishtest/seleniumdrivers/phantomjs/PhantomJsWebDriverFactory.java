@@ -30,6 +30,9 @@ import java.util.Arrays;
 
 public final class PhantomJsWebDriverFactory {
 
+    private PhantomJsWebDriverFactory() {
+    }
+
     public static WebDriver createWebDriver(final int port,
                                             @Nullable final String... additionalOptions) {
         try {

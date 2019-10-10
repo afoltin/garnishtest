@@ -34,6 +34,9 @@ public final class ChromeWebDriverFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChromeWebDriverFactory.class);
 
+    private ChromeWebDriverFactory() {
+    }
+
     public static WebDriver createWebDriver() {
         final DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
         capabilities.setJavascriptEnabled(true);

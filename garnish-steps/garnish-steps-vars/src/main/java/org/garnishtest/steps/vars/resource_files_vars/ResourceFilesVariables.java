@@ -27,6 +27,8 @@ public final class ResourceFilesVariables {
 
     @NonNull private static final ScenarioAttribute<String> RESOURCE_FILES_PREFIX = ScenarioAttribute.create();
 
+    private ResourceFilesVariables() {
+    }
 
     public static void setResourceFilesPrefix(@Nullable final String resourceFilesPrefix) {
         RESOURCE_FILES_PREFIX.setValue(resourceFilesPrefix);
