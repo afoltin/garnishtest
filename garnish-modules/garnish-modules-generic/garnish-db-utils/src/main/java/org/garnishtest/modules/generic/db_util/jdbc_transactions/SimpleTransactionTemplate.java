@@ -66,11 +66,8 @@ public final class SimpleTransactionTemplate {
     }
 
     private Connection acquireDatabaseConnection() {
-        try {
-            final Connection connection = this.dataSource.getConnection();
-
+        try (Connection connection = this.dataSource.getConnection()) {
             connection.setAutoCommit(false);
-
             return connection;
         } catch (final Exception e) {
             throw new SimpleTransactionTemplateException("failed acquire database transaction from data source", e);

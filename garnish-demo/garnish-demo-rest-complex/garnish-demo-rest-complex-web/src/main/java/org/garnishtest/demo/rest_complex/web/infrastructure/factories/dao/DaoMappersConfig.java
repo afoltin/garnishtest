@@ -56,11 +56,11 @@ public class DaoMappersConfig {
     }
 
     private <T> T createMapper(@NonNull final Class<T> mapperClass) throws Exception {
-        final SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(
-                this.daoInfrastructureConfig.sqlSessionFactory()
-        );
+        try (SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(
+            this.daoInfrastructureConfig.sqlSessionFactory())) {
 
-        return sessionTemplate.getMapper(mapperClass);
+            return sessionTemplate.getMapper(mapperClass);
+        }
     }
 
 }
