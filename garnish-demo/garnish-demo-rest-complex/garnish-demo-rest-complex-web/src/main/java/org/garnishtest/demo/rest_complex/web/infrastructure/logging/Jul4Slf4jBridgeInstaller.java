@@ -31,5 +31,7 @@ public final class Jul4Slf4jBridgeInstaller implements ServletContextListener {
     }
 
     @Override
-    public void contextDestroyed(final ServletContextEvent event) {}
+    public void contextDestroyed(final ServletContextEvent event) {
+        // Do nothing
+    }
 }

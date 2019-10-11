@@ -32,6 +32,8 @@ public final class NoOpDbUnitConfigurer implements DbUnitConfigurer {
     }
 
     @Override
-    public void configure(@NonNull final DatabaseConfig config) { }
+    public void configure(@NonNull final DatabaseConfig config) {
+        // Do nothing
+    }
 
 }
