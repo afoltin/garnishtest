@@ -6,7 +6,8 @@ dist: trusty
 notifications:
   email:
     recipients:
-      - cvmocanu@gmail.com
+      - afoltin@mobiquityinc.com
+      - baydinoglu@mobiquityinc.com
     on_success: never # always|never|change
     on_failure: change
 
