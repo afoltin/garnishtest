@@ -18,11 +18,11 @@
 package org.garnishtest.seleniumdrivers.phantomjs.server;
 
 import com.google.common.collect.ImmutableList;
+import lombok.NonNull;
+import org.apache.commons.lang3.ObjectUtils;
 import org.garnishtest.seleniumdrivers.phantomjs.server.finder.PhantomJsClasspathLocationFinder;
 import org.garnishtest.seleniumdrivers.utils.ClassPathExtractor;
 import org.garnishtest.seleniumdrivers.utils.OsUtils;
-import lombok.NonNull;
-import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zeroturnaround.exec.ProcessExecutor;
@@ -31,7 +31,6 @@ import org.zeroturnaround.exec.stream.slf4j.Slf4jStream;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
@@ -51,10 +50,10 @@ public final class PhantomJsServer {
     public PhantomJsServer(@NonNull final Path phantomJsExecutable,
                            final int port,
                            @Nullable final List<String> additionalOptions) {
-        if (!Files.exists(phantomJsExecutable)) {
+        if (!phantomJsExecutable.toFile().exists()) {
             throw new IllegalArgumentException("phantomJsExecutable [" + phantomJsExecutable.toAbsolutePath() + "] does not exist");
         }
-        if (!Files.isRegularFile(phantomJsExecutable)) {
+        if (!phantomJsExecutable.toFile().isFile()) {
             throw new IllegalArgumentException("phantomJsExecutable [" + phantomJsExecutable.toAbsolutePath() + "] is not a file");
         }
 
