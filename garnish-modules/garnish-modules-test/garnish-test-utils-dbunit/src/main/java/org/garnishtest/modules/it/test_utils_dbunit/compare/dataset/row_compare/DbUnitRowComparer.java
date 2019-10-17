@@ -17,10 +17,7 @@
 
 package org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.row_compare;
 
-import org.garnishtest.modules.generic.function_value_matcher.FunctionValueMatcher;
 import lombok.NonNull;
-import org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.model.match.RowMatch;
-import org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.placeholders.DbUnitPlaceholders;
 import org.dbunit.dataset.Column;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
@@ -28,6 +25,9 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.ITableMetaData;
 import org.dbunit.dataset.datatype.DataType;
 import org.dbunit.dataset.datatype.TypeCastException;
+import org.garnishtest.modules.generic.function_value_matcher.FunctionValueMatcher;
+import org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.model.match.RowMatch;
+import org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.placeholders.DbUnitPlaceholders;
 
 import javax.annotation.Nullable;
 
@@ -94,36 +94,27 @@ public final class DbUnitRowComparer {
                     actualTable.getValue(actualRowsIndex, columnName)
             );
 
-            // don't compare columns that are not in the expected file
-            if (expectedValue == null) {
+            if (expectedValue == null /* don't compare columns that are not in the expected file */
+                || placeholders.recordPlaceholderIfPossible(expectedValue,
+                actualValue) /* we just recorded the value of the placeholder, so there is nothing to compare to */) {
                 continue;
             }
 
-            final boolean newPlaceholderRecorded = placeholders.recordPlaceholderIfPossible(expectedValue, actualValue);
-            if (newPlaceholderRecorded) {
-                // we just recorded the value of the placeholder, so there is nothing to compare to
-                continue;
-            }
-
-            if (expectedValue.startsWith(FUNCTION_PREFIX)) {
-                // use function to match
-                if (!rowsMatchUsingFunctions(expectedValue, actualValue)) {
+            if (!expectedValue.startsWith(FUNCTION_PREFIX)) {
+                final String expectedValueWithoutEscape;
+                if (expectedValue.startsWith(ESCAPED_FUNCTION_PREFIX)) {
+                    expectedValueWithoutEscape = expectedValue
+                        .substring(ESCAPED_FUNCTION_PREFIX.length() - FUNCTION_PREFIX.length());
+                } else {
+                    expectedValueWithoutEscape = expectedValue;
+                }
+                if (!rowsMatchDefault(placeholders, column, expectedValueWithoutEscape,
+                    actualValue)) {
                     return false;
                 }
-            } else {
-                if (expectedValue.startsWith(ESCAPED_FUNCTION_PREFIX)) {
-                    final String expectedValueWithoutEscape = expectedValue.substring(
-                            ESCAPED_FUNCTION_PREFIX.length() - FUNCTION_PREFIX.length()
-                    );
-
-                    if (!rowsMatchDefault(placeholders, column, expectedValueWithoutEscape, actualValue)) {
-                        return false;
-                    }
-                } else {
-                    if (!rowsMatchDefault(placeholders, column, expectedValue, actualValue)) {
-                        return false;
-                    }
-                }
+            } else if (!rowsMatchUsingFunctions(expectedValue,
+                actualValue) /* use function to match */) {
+                return false;
             }
         }
 
@@ -139,8 +130,7 @@ public final class DbUnitRowComparer {
     /** Try to match exact values. */
     private boolean rowsMatchDefault(@NonNull final DbUnitPlaceholders placeholders,
                                      @NonNull final Column column,
-                                     final String expectedValue,
-                                     final String actualValue) throws TypeCastException {
+                                     final String expectedValue, final String actualValue) throws TypeCastException {
         final String expectedValueWithPlaceholdersReplaced = placeholders.replacePlaceholders(expectedValue);
 
         final DataType columnDataType = column.getDataType();
@@ -148,8 +138,7 @@ public final class DbUnitRowComparer {
         return columnDataType.compare(expectedValueWithPlaceholdersReplaced, actualValue) == 0;
     }
 
-    @Nullable
-    private static String nullableToString(@Nullable final Object object) {
+    @Nullable private static String nullableToString(@Nullable final Object object) {
         if (object == null) {
             return null;
         }
