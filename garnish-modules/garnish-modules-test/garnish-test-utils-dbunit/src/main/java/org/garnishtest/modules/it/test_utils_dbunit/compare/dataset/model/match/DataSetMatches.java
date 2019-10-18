@@ -17,7 +17,6 @@
 
 package org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.model.match;
 
-import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
 
@@ -25,6 +24,7 @@ import javax.annotation.concurrent.Immutable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class helps generate all possible combinations of matches
@@ -82,7 +82,7 @@ public final class DataSetMatches {
 
     @Override
     public String toString() {
-        return Joiner.on("\n").join(this.matches);
+        return this.matches.stream().map(Object::toString).collect(Collectors.joining("\n"));
     }
 
 }
