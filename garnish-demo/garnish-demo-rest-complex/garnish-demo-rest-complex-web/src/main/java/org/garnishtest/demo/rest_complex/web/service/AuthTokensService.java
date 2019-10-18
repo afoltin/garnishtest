@@ -42,7 +42,8 @@ public final class AuthTokensService {
         final Long userId = this.usersService.getUserIdByUsernameAndPassword(username, password);
 
         if (userId == null) {
-            throw new RuntimeException("incorrect username or password"); // todo: proper JSON errors from controllers
+            throw new AuthTokensServiceException(
+                "incorrect username or password"); // todo: proper JSON errors from controllers
         }
 
         final AuthToken authToken = new AuthToken();

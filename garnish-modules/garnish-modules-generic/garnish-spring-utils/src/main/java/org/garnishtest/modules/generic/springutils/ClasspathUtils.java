@@ -46,7 +46,8 @@ public final class ClasspathUtils {
                     StandardCharsets.UTF_8
             );
         } catch (final Exception e) {
-            throw new RuntimeException("failed to load resource at classpath location [" + classpathLocation + "]", e);
+            throw new ClasspathUtilsException(
+                "failed to load resource at classpath location [" + classpathLocation + "]", e);
         }
     }
 
