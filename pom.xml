@@ -64,13 +64,13 @@
         <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
 
         <!-- versions -->
-        <slf4j.version>1.7.23</slf4j.version>
-        <cucumber.version>1.2.4</cucumber.version>
-        <httpclient.version>4.5.2</httpclient.version>
         <kotlin.version>1.3.41</kotlin.version>
+        <slf4j.version>1.7.29</slf4j.version>
         <spring.version>5.2.1.RELEASE</spring.version>
         <spring-security.version>5.2.1.RELEASE</spring-security.version>
         <jackson.version>2.10.0</jackson.version>
+        <cucumber.version>1.2.5</cucumber.version>
+        <httpclient.version>4.5.10</httpclient.version>
     </properties>
 
 
@@ -199,7 +199,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.16.14</version>
+                <version>1.18.10</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -207,7 +207,7 @@
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
-                <version>3.0.1</version>
+                <version>3.0.2</version>
             </dependency>
 
             <!-- slf4j -->
@@ -242,7 +242,7 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.2.1</version>
+                <version>1.2.3</version>
                 <scope>runtime</scope>
             </dependency>
 
@@ -283,14 +283,14 @@
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.10</version>
+                <version>1.13</version>
             </dependency>
 
             <!-- commons-io -->
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
             </dependency>
 
             <!-- spring -->
@@ -422,28 +422,28 @@
             <dependency>
                 <groupId>com.jayway.jsonpath</groupId>
                 <artifactId>json-path</artifactId>
-                <version>2.2.0</version>
+                <version>2.4.0</version>
             </dependency>
 
             <!-- assertj -->
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>2.3.0</version>
+                <version>3.14.0</version>
             </dependency>
 
             <!-- joor - fluent reflection -->
             <dependency>
                 <groupId>org.jooq</groupId>
                 <artifactId>joor</artifactId>
-                <version>0.9.6</version>
+                <version>0.9.12</version>
             </dependency>
 
             <!--jsonassert-->
             <dependency>
                 <groupId>org.skyscreamer</groupId>
                 <artifactId>jsonassert</artifactId>
-                <version>1.3.0</version>
+                <version>1.5.0</version>
             </dependency>
 
             <!-- dbunit -->
@@ -463,7 +463,7 @@
             <dependency>
                 <groupId>org.codehaus.janino</groupId>
                 <artifactId>janino</artifactId>
-                <version>2.7.8</version>
+                <version>3.1.0</version>
             </dependency>
 
             <!-- cucumber -->
@@ -530,7 +530,7 @@
             <dependency>
                 <groupId>com.github.tomakehurst</groupId>
                 <artifactId>wiremock-standalone</artifactId>
-                <version>2.0.10-beta</version>
+                <version>2.25.1</version>
 
                 <exclusions>
                     <exclusion>
@@ -605,7 +605,7 @@
             <dependency>
                 <groupId>org.zeroturnaround</groupId>
                 <artifactId>zt-exec</artifactId>
-                <version>1.9</version>
+                <version>1.11</version>
             </dependency>
 
             <!--==================== test dependencies ====================-->
@@ -622,7 +622,7 @@
             <dependency>
                 <groupId>pl.pragmatists</groupId>
                 <artifactId>JUnitParams</artifactId>
-                <version>1.0.5</version>
+                <version>1.1.1</version>
                 <scope>test</scope>
             </dependency>
 
