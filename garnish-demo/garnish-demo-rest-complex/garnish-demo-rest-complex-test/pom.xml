@@ -138,20 +138,9 @@
                     <name>!runIntegrationTests</name>
                 </property>
             </activation>
-
-            <build>
-                <plugins>
-                    <!-- failsafe -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
         </profile>
 
         <profile>
@@ -170,7 +159,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <!-- using failsafe instead, so we can fail the build after the server is shutdown and the reports are created -->
-                            <skip>true</skip>
+                            <skipTests>true</skipTests>
                         </configuration>
                     </plugin>
 
