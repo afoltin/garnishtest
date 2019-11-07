@@ -20,7 +20,6 @@ package org.garnishtest.modules.generic.exception_utils.suppressed_ex
 import org.garnishtest.modules.generic.exception_utils.suppressed_ex.action.RiskyAction
 import org.garnishtest.modules.generic.exception_utils.suppressed_ex.action.RiskyActionExecutionResult
 import lombok.NonNull
-import java.lang.Throwable
 import javax.annotation.concurrent.NotThreadSafe
 
 @NotThreadSafe
