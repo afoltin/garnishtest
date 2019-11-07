@@ -28,7 +28,6 @@ import cucumber.api.java.en.When;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -46,10 +45,7 @@ public class DatabaseSteps {
     public DatabaseSteps(@NonNull @Qualifier("garnishStepsDb_dbScriptsExecutor")      final DbScriptsExecutor dbScriptsExecutor,
                          @NonNull @Qualifier("garnishStepsDb_dbUnitInserter")         final DbUnitInserter dbUnitInserter,
                          @NonNull @Qualifier("garnishStepsDb_dbUnitDatabaseComparer") final DbUnitDatabaseComparer dbUnitDatabaseComparer,
-
-                         // using @Value because a spring bug (SPR-12180) prevents autowiring collections with @Qualifier
-                         // todo: remove this hack once Spring 4.3 is released
-                         @NonNull @Value("#{garnishStepsDb_cleanupScripts}")          final List<Resource> cleanupScripts) {
+                         @NonNull @Qualifier("garnishStepsDb_cleanupScripts")         final List<Resource> cleanupScripts) {
         this.dbScriptsExecutor = dbScriptsExecutor;
         this.dbUnitInserter = dbUnitInserter;
         this.dbUnitDatabaseComparer = dbUnitDatabaseComparer;

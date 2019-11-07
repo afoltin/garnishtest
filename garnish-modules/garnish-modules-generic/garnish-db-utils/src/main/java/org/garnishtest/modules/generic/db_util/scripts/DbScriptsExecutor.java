@@ -25,11 +25,10 @@ import org.garnishtest.modules.generic.variables_resolver.impl.escape.impl.Value
 import lombok.NonNull;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.AutoCloseInputStream;
-import org.flywaydb.core.internal.dbsupport.DbSupport;
-import org.flywaydb.core.internal.dbsupport.DbSupportFactory;
-import org.flywaydb.core.internal.dbsupport.JdbcTemplate;
-import org.flywaydb.core.internal.dbsupport.SqlScript;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
 
 import javax.sql.DataSource;
 import java.io.InputStream;
@@ -71,30 +70,20 @@ public class DbScriptsExecutor {
     private void executeScripts(@NonNull final Connection connection,
                                 @NonNull final VariablesResolver variablesResolver,
                                 @NonNull final List<? extends Resource> sqlScriptResources) {
-        final DbSupport dbSupport = createDbSupport(connection);
-
         for (final Resource sqlScriptResource : sqlScriptResources) {
-            executeScript(variablesResolver, sqlScriptResource, dbSupport, connection);
+            executeScript(variablesResolver, sqlScriptResource, connection);
         }
-    }
-
-    private DbSupport createDbSupport(final Connection connection) {
-        final boolean printInfo = true;
-
-        return DbSupportFactory.createDbSupport(connection, printInfo);
     }
 
     private void executeScript(@NonNull final VariablesResolver variablesResolver,
                                @NonNull final Resource sqlScriptResource,
-                               @NonNull final DbSupport dbSupport,
                                @NonNull final Connection connection) {
         final String scriptContent = loadScriptContent(sqlScriptResource);
 
         final String scriptContentWithVariablesReplaced = variablesResolver.resolveVariablesInText(scriptContent, ValueEscapers.none());
 
-        final SqlScript sqlScript = new SqlScript(scriptContentWithVariablesReplaced, dbSupport);
-
-        sqlScript.execute(new JdbcTemplate(connection, Types.NULL));
+        ScriptUtils.executeSqlScript(connection,
+            new ByteArrayResource(scriptContentWithVariablesReplaced.getBytes()));
     }
 
     private String loadScriptContent(@NonNull final Resource sqlScriptResource) throws DbScriptsExecutorException {

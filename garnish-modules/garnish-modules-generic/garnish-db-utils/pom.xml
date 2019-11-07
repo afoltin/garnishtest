@@ -80,11 +80,9 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
         </dependency>
-
-        <!-- flyway -->
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
         </dependency>
 
     </dependencies>

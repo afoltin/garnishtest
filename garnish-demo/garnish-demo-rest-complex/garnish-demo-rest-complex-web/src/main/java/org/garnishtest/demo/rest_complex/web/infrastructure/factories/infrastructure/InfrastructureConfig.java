@@ -21,6 +21,7 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
@@ -28,13 +29,12 @@ import org.springframework.core.io.ClassPathResource;
 public class InfrastructureConfig {
 
     @Bean
-    public PropertyPlaceholderConfigurer placeHolderConfigurer() {
-        final PropertyPlaceholderConfigurer placeholderConfigurer = new PropertyPlaceholderConfigurer();
+    public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
+        final PropertySourcesPlaceholderConfigurer placeholderConfigurer = new PropertySourcesPlaceholderConfigurer();
 
         placeholderConfigurer.setLocation(
                 new ClassPathResource("garnish-demo-rest-complex-web.properties")
         );
-        placeholderConfigurer.setSystemPropertiesMode(PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE);
 
         return placeholderConfigurer;
     }
