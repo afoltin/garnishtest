@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.garnishtest.demo.rest_complex.web.dao.mappers.AddressesMapper">
 
-    <insert id="insertAddress" parameterType="Address" useGeneratedKeys="true" keyProperty="id"><![CDATA[
+    <insert id="insertAddress"
+            parameterType="org.garnishtest.demo.rest_complex.web.dao.model.Address"
+            useGeneratedKeys="true" keyProperty="id"><![CDATA[
         insert into addresses
             (user_id, textual_address, latitude, longitude)
         values

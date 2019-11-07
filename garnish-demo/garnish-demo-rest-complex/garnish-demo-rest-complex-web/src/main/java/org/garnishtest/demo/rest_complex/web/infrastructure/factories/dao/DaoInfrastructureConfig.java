@@ -59,8 +59,7 @@ public class DaoInfrastructureConfig {
 
         factory.setDataSource(dataSource());
         factory.setMapperLocations(this.mapperLocations);
-        factory.setTypeAliasesPackage("org.garnishtest.demo.rest.web.dao.model");
-        factory.setTypeAliasesPackage("org.garnishtest.demo.rest.web.dao.model");
+        factory.setTypeAliasesPackage("org.garnishtest.demo.rest_complex.web.dao.model");
 
         return factory;
     }
