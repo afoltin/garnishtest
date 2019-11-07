@@ -117,7 +117,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.19.1</version>
 
                         <configuration>
                             <skip>true</skip>
@@ -141,7 +140,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.19.1</version>
                         <configuration>
                             <!-- using failsafe instead, so we can fail the build after the server is shutdown and the reports are created -->
                             <skip>true</skip>
@@ -152,7 +150,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>1.10</version>
 
                         <executions>
                             <execution>
@@ -179,17 +176,17 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.4.18</version>
+                        <version>1.7.7</version>
 
                         <configuration>
                             <container>
-                                <containerId>tomcat8x</containerId>
+                                <containerId>tomcat9x</containerId>
                                 <timeout>300000</timeout>
 
                                 <artifactInstaller>
                                     <groupId>org.apache.tomcat</groupId>
                                     <artifactId>tomcat</artifactId>
-                                    <version>8.0.32</version>
+                                    <version>9.0.17</version>
                                 </artifactInstaller>
 
                                 <systemProperties>
@@ -283,7 +280,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.19.1</version>
 
                         <configuration>
                             <forkCount>0</forkCount>

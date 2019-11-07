@@ -22,6 +22,7 @@ import lombok.NonNull;
 
 import javax.annotation.concurrent.Immutable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 @Immutable
@@ -30,12 +31,12 @@ public final class GeoLocation {
     private static final int SCALE = 10;
 
     private static final Range<BigDecimal> LATITUDE_RANGE = Range.closed(
-            new BigDecimal("-90").setScale(SCALE, BigDecimal.ROUND_UNNECESSARY),
-            new BigDecimal("90").setScale(SCALE, BigDecimal.ROUND_UNNECESSARY)
+            new BigDecimal("-90").setScale(SCALE, RoundingMode.UNNECESSARY),
+            new BigDecimal("90").setScale(SCALE, RoundingMode.UNNECESSARY)
     );
     private static final Range<BigDecimal> LONGITUDE_RANGE = Range.closed(
-            new BigDecimal("-180.0").setScale(SCALE, BigDecimal.ROUND_UNNECESSARY),
-            new BigDecimal("180.0").setScale(SCALE, BigDecimal.ROUND_UNNECESSARY)
+            new BigDecimal("-180.0").setScale(SCALE, RoundingMode.UNNECESSARY),
+            new BigDecimal("180.0").setScale(SCALE, RoundingMode.UNNECESSARY)
     );
 
     @NonNull private final BigDecimal latitude;

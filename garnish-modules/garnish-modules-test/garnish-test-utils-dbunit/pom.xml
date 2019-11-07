@@ -71,6 +71,12 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
 
+        <!-- commons-text -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+        </dependency>
+
         <!-- dbunit -->
         <dependency>
             <groupId>org.dbunit</groupId>

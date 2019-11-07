@@ -32,6 +32,11 @@
             <artifactId>jsr305</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
+
         <!-- jaxb -->
         <dependency>
             <groupId>javax.xml.bind</groupId>

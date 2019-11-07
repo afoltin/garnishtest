@@ -84,7 +84,7 @@ public final class FunctionValueMatcher {
             throw new FunctionCallerException("failed to compile [\n" + printWithLineNumbers(classBody) + "\n]", e);
         }
 
-        return (ValueMatcher) classBodyEvaluator.getClazz().newInstance();
+        return (ValueMatcher) classBodyEvaluator.getClazz().getDeclaredConstructor().newInstance();
     }
 
     // todo: move to utility class

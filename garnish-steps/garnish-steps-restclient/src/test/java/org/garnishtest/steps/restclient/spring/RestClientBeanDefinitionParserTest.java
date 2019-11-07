@@ -19,6 +19,7 @@ package org.garnishtest.steps.restclient.spring;
 
 import org.garnishtest.modules.generic.httpclient.SimpleHttpClient;
 import org.garnishtest.modules.generic.httpclient.request_preparer.HttpRequestPreparer;
+import org.garnishtest.modules.generic.httpclient.request_preparer.impl.CompositeHttpRequestPreparer;
 import org.garnishtest.steps.restclient.auth.preparer.AuthenticationHttpRequestPreparer;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -45,8 +46,11 @@ public class RestClientBeanDefinitionParserTest {
         final String baseUrl = on(simpleHttpClient).field("baseUrl").get().toString();
         assertThat(baseUrl).isEqualTo("http://www.example.com/no-request-parsers");
 
-        final List<HttpRequestPreparer> preparers = on(simpleHttpClient).field("requestExecutor")     // HttpRequestExecutor
+        final CompositeHttpRequestPreparer httpRequestPreparer = on(simpleHttpClient)
+                                                                        .field("requestExecutor")     // HttpRequestExecutor
                                                                         .field("httpRequestPreparer") // CompositeHttpRequestPreparer
+                                                                        .get();
+        final List<HttpRequestPreparer> preparers = on(httpRequestPreparer)
                                                                         .field("preparers")           // List<HttpRequestPreparer>
                                                                         .get();
         assertThat(preparers).hasSize(1);
@@ -64,15 +68,18 @@ public class RestClientBeanDefinitionParserTest {
         final String baseUrl = on(simpleHttpClient).field("baseUrl").get().toString();
         assertThat(baseUrl).isEqualTo("http://www.example.com/with-request-parsers");
 
-        final List<TestRequestPreparer> preparers = on(simpleHttpClient).field("requestExecutor")     // HttpRequestExecutor
+        final CompositeHttpRequestPreparer httpRequestPreparer = on(simpleHttpClient)
+                                                                        .field("requestExecutor")     // HttpRequestExecutor
                                                                         .field("httpRequestPreparer") // CompositeHttpRequestPreparer
+                                                                        .get();
+        final List<HttpRequestPreparer> preparers = on(httpRequestPreparer)
                                                                         .field("preparers")           // List<HttpRequestPreparer>
                                                                         .get();
         assertThat(preparers).hasSize(4);
         assertThat(preparers.get(0)).isInstanceOf(AuthenticationHttpRequestPreparer.class);
-        assertThat(preparers.get(1).getName()).isEqualTo("preparer_1");
-        assertThat(preparers.get(2).getName()).isEqualTo("preparer_2");
-        assertThat(preparers.get(3).getName()).isEqualTo("preparer_3");
+        assertThat("preparer_1".equals(on(preparers.get(1)).call("getName").get()));
+        assertThat("preparer_2".equals(on(preparers.get(1)).call("getName").get()));
+        assertThat("preparer_3".equals(on(preparers.get(1)).call("getName").get()));
     }
 
     @Test
@@ -86,12 +93,15 @@ public class RestClientBeanDefinitionParserTest {
         final String baseUrl = on(simpleHttpClient).field("baseUrl").get().toString();
         assertThat(baseUrl).isEqualTo("http://www.example.com/from-placeholder");
 
-        final List<TestRequestPreparer> preparers = on(simpleHttpClient).field("requestExecutor")     // HttpRequestExecutor
+        final CompositeHttpRequestPreparer httpRequestPreparer = on(simpleHttpClient)
+                                                                        .field("requestExecutor")     // HttpRequestExecutor
                                                                         .field("httpRequestPreparer") // CompositeHttpRequestPreparer
+                                                                        .get();
+        final List<HttpRequestPreparer> preparers = on(httpRequestPreparer)
                                                                         .field("preparers")           // List<HttpRequestPreparer>
                                                                         .get();
         assertThat(preparers).hasSize(2);
         assertThat(preparers.get(0)).isInstanceOf(AuthenticationHttpRequestPreparer.class);
-        assertThat(preparers.get(1).getName()).isEqualTo("preparer_1");
+        assertThat("preparer_1".equals(on(preparers.get(1)).call("getName").get()));
     }
 }
