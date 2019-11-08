@@ -2,14 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.garnishtest.demo.rest_complex.web.dao.mappers.UsersMapper">
 
-    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id"><![CDATA[
+    <insert id="insertUser" parameterType="org.garnishtest.demo.rest_complex.web.dao.model.User"
+            useGeneratedKeys="true" keyProperty="id"><![CDATA[
         insert into users
             (name, username, password)
         values
             (#{name}, #{username}, #{password})
     ]]></insert>
 
-    <select id="getUserByUsername" parameterType="map" resultType="User"><![CDATA[
+    <select id="getUserByUsername" parameterType="map"
+            resultType="org.garnishtest.demo.rest_complex.web.dao.model.User"><![CDATA[
         select
             *
         from
@@ -18,13 +20,15 @@
             username = #{username}
     ]]></select>
 
-    <resultMap id="getUserWithAddressByAuthToken_map" type="User">
+    <resultMap id="getUserWithAddressByAuthToken_map"
+               type="org.garnishtest.demo.rest_complex.web.dao.model.User">
         <id property="id"           column="user_id" />
         <result property="name"     column="user_name"/>
         <result property="username" column="user_username"/>
         <result property="password" column="user_password"/>
 
-        <association property="address" javaType="Address">
+        <association property="address"
+                     javaType="org.garnishtest.demo.rest_complex.web.dao.model.Address">
             <id property="id"                 column="address_id" />
             <result property="textualAddress" column="address_textual_address"/>
             <result property="latitude"       column="address_latitude"/>

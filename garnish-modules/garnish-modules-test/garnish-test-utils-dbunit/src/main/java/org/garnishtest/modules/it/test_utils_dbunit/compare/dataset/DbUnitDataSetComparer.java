@@ -25,7 +25,7 @@ import org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.model.match.
 import org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.model.match.RowMatch;
 import org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.placeholders.DbUnitPlaceholders;
 import org.garnishtest.modules.it.test_utils_dbunit.compare.dataset.row_compare.DbUnitRowComparer;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.dbunit.dataset.Column;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.FilteredDataSet;

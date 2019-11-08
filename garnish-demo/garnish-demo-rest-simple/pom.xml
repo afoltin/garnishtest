@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.garnishtest</groupId>
         <artifactId>garnish-demo</artifactId>
-        <version>0.0.22-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>garnish-demo-rest-simple</artifactId>
@@ -21,23 +21,8 @@
     </modules>
 
     <properties>
-        <!-- maven settings -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-        <maven.compiler.debug>true</maven.compiler.debug>
-
         <!-- misc properties -->
         <project.rootDirectory>${project.basedir}/../..</project.rootDirectory>
-
-        <!-- versions -->
-        <garnish.version>0.0.22-SNAPSHOT</garnish.version>
-        <slf4j.version>1.7.14</slf4j.version>
-        <spring.version>4.2.5.RELEASE</spring.version>
-        <spring-security.version>4.0.4.RELEASE</spring-security.version>
-        <jackson.version>2.6.5</jackson.version>
-        <cucumber.version>1.2.4</cucumber.version>
     </properties>
 
     <dependencyManagement>
@@ -60,7 +45,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.16.6</version>
+                <version>1.18.10</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -68,21 +53,27 @@
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
-                <version>3.0.1</version>
+                <version>3.0.2</version>
             </dependency>
 
             <!-- guava -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>19.0</version>
+                <version>28.1-jre</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.errorprone</groupId>
+                        <artifactId>error_prone_annotations</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- commons-lang3 - should only be used for things not in guava-->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.4</version>
+                <version>3.9</version>
             </dependency>
 
             <!-- slf4j -->
@@ -117,7 +108,7 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.1.3</version>
+                <version>1.2.3</version>
                 <scope>runtime</scope>
             </dependency>
 
@@ -258,6 +249,11 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-kotlin</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
 

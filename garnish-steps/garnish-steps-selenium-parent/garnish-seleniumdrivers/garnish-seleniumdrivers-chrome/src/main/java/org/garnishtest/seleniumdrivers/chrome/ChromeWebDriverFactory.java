@@ -21,6 +21,7 @@ import org.garnishtest.seleniumdrivers.chrome.finder.ChromeDriverBinaryClasspath
 import org.garnishtest.seleniumdrivers.utils.ClassPathExtractor;
 import org.garnishtest.seleniumdrivers.utils.OsUtils;
 import lombok.NonNull;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.Augmenter;
@@ -35,7 +36,7 @@ public final class ChromeWebDriverFactory {
     private static final Logger LOGGER = LoggerFactory.getLogger(ChromeWebDriverFactory.class);
 
     public static WebDriver createWebDriver() {
-        final DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+        final DesiredCapabilities capabilities = new DesiredCapabilities("phantomjs", "", Platform.ANY);
         capabilities.setJavascriptEnabled(true);
 
         final Path chromeBinaryTempPath = getChromeBinaryTempPath();

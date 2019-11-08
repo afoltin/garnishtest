@@ -15,7 +15,7 @@
 
     <alias alias="garnishStepsDb_deps_dataSource" name="demoTest_dataSource" />
 
-    <bean id="garnishStepsDb_deps_dbUnitConfigurer" class="org.garnishtest.modules.it.test_utils_dbunit.config.impl.MySqlDbUnitConfigurer">
+    <bean id="garnishStepsDb_deps_dbUnitConfigurer" class="org.garnishtest.modules.it.test_utils_dbunit.config.impl.H2DbUnitConfigurer">
         <constructor-arg name="databaseName" value="garnish_demo_rest_complex_schema"/>
     </bean>
 

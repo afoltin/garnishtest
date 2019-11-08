@@ -18,6 +18,7 @@
 package org.garnishtest.seleniumdrivers.phantomjs;
 
 import org.garnishtest.seleniumdrivers.phantomjs.server.PhantomJsServer;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -52,7 +53,7 @@ public final class PhantomJsWebDriverFactory {
     }
 
     private static WebDriver createWebDriver(final int port) throws MalformedURLException {
-        final DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+        final DesiredCapabilities capabilities = new DesiredCapabilities("phantomjs", "", Platform.ANY);
         capabilities.setJavascriptEnabled(true);
 
         final RemoteWebDriver remoteWebDriver = new RemoteWebDriver(new URL("http://localhost:" + port), capabilities);

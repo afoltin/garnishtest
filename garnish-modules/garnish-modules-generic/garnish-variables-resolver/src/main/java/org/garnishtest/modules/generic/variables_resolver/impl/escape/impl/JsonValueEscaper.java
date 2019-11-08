@@ -18,7 +18,7 @@
 package org.garnishtest.modules.generic.variables_resolver.impl.escape.impl;
 
 import org.garnishtest.modules.generic.variables_resolver.impl.escape.ValueEscaper;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import javax.annotation.Nullable;
 

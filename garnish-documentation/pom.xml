@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.garnishtest</groupId>
         <artifactId>garnish</artifactId>
-        <version>0.0.22-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>garnish-documentation</artifactId>
@@ -101,7 +101,7 @@
                         <id>assemble-documentation-into-zip</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>assembly</goal>
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>

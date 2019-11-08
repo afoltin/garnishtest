@@ -7,7 +7,7 @@
            http://www.garnish-test.org/schema/steps/restclient    http://www.garnish-test.org/schema/steps/restclient.xsd
        ">
 
-    <bean id="demoTest_propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean id="demoTest_propertyPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="location" value="classpath:demo-simple-test.properties"/>
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
     </bean>

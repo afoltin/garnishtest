@@ -5,7 +5,7 @@
 
     <groupId>org.garnishtest</groupId>
     <artifactId>garnish</artifactId>
-    <version>0.0.22-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
 
@@ -50,8 +50,9 @@
         <!-- maven settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+        <java.version>11</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.debug>true</maven.compiler.debug>
 
         <!-- misc properties -->
@@ -63,13 +64,13 @@
         <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
 
         <!-- versions -->
-        <kotlin.version>1.0.6</kotlin.version>
-        <slf4j.version>1.7.23</slf4j.version>
-        <spring.version>4.3.6.RELEASE</spring.version>
-        <spring-security.version>4.2.1.RELEASE</spring-security.version>
-        <jackson.version>2.8.6</jackson.version>
-        <cucumber.version>1.2.4</cucumber.version>
-        <httpclient.version>4.5.2</httpclient.version>
+        <kotlin.version>1.3.41</kotlin.version>
+        <slf4j.version>1.7.29</slf4j.version>
+        <spring.version>5.2.1.RELEASE</spring.version>
+        <spring-security.version>5.2.1.RELEASE</spring-security.version>
+        <jackson.version>2.10.0</jackson.version>
+        <cucumber.version>1.2.5</cucumber.version>
+        <httpclient.version>4.5.10</httpclient.version>
     </properties>
 
 
@@ -198,7 +199,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.16.14</version>
+                <version>1.18.10</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -206,7 +207,7 @@
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
-                <version>3.0.1</version>
+                <version>3.0.2</version>
             </dependency>
 
             <!-- slf4j -->
@@ -241,7 +242,7 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.2.1</version>
+                <version>1.2.3</version>
                 <scope>runtime</scope>
             </dependency>
 
@@ -249,34 +250,47 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>21.0</version>
+                <version>28.1-jre</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.errorprone</groupId>
+                        <artifactId>error_prone_annotations</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- error_prone_annotations: guava guys messed up and declared this dependency as optional -->
             <dependency>
                 <groupId>com.google.errorprone</groupId>
                 <artifactId>error_prone_annotations</artifactId>
-                <version>2.0.17</version>
+                <version>2.3.3</version>
             </dependency>
             
             <!-- commons-lang3 - should only be used for things not in guava-->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.5</version>
+                <version>3.9</version>
+            </dependency>
+
+            <!-- commons-text -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.8</version>
             </dependency>
 
             <!-- commons-codec -->
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.10</version>
+                <version>1.13</version>
             </dependency>
 
             <!-- commons-io -->
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
             </dependency>
 
             <!-- spring -->
@@ -398,47 +412,45 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-kotlin</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
 
             <!-- json-path -->
             <dependency>
                 <groupId>com.jayway.jsonpath</groupId>
                 <artifactId>json-path</artifactId>
-                <version>2.2.0</version>
+                <version>2.4.0</version>
             </dependency>
 
             <!-- assertj -->
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>2.3.0</version>
+                <version>3.14.0</version>
             </dependency>
 
             <!-- joor - fluent reflection -->
             <dependency>
                 <groupId>org.jooq</groupId>
                 <artifactId>joor</artifactId>
-                <version>0.9.6</version>
+                <version>0.9.12</version>
             </dependency>
 
             <!--jsonassert-->
             <dependency>
                 <groupId>org.skyscreamer</groupId>
                 <artifactId>jsonassert</artifactId>
-                <version>1.3.0</version>
-            </dependency>
-
-            <!-- flyway -->
-            <dependency>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-core</artifactId>
-                <version>3.2.1</version> <!--todo: migrate to latest version-->
+                <version>1.5.0</version>
             </dependency>
 
             <!-- dbunit -->
             <dependency>
                 <groupId>org.dbunit</groupId>
                 <artifactId>dbunit</artifactId>
-                <version>2.5.1</version>
+                <version>2.6.0</version>
                 <exclusions>
                     <exclusion>
                         <groupId>commons-codec</groupId>
@@ -451,7 +463,7 @@
             <dependency>
                 <groupId>org.codehaus.janino</groupId>
                 <artifactId>janino</artifactId>
-                <version>2.7.8</version>
+                <version>3.1.0</version>
             </dependency>
 
             <!-- cucumber -->
@@ -480,7 +492,7 @@
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
-                <version>2.53.0</version>
+                <version>3.141.59</version>
             </dependency>
 
             <!-- httpclient -->
@@ -518,7 +530,7 @@
             <dependency>
                 <groupId>com.github.tomakehurst</groupId>
                 <artifactId>wiremock-standalone</artifactId>
-                <version>2.0.10-beta</version>
+                <version>2.25.1</version>
 
                 <exclusions>
                     <exclusion>
@@ -564,22 +576,28 @@
                 </exclusions>
             </dependency>
 
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+
             <!-- jaxb -->
             <dependency>
                 <groupId>javax.xml.bind</groupId>
                 <artifactId>jaxb-api</artifactId>
-                <version>2.2.12</version>
+                <version>2.4.0-b180830.0359</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-core</artifactId>
-                <version>2.2.11</version>
+                <version>2.3.0</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-impl</artifactId>
-                <version>2.2.11</version>
+                <version>2.3.2</version>
                 <scope>runtime</scope>
             </dependency>
 
@@ -587,7 +605,7 @@
             <dependency>
                 <groupId>org.zeroturnaround</groupId>
                 <artifactId>zt-exec</artifactId>
-                <version>1.9</version>
+                <version>1.11</version>
             </dependency>
 
             <!--==================== test dependencies ====================-->
@@ -604,7 +622,7 @@
             <dependency>
                 <groupId>pl.pragmatists</groupId>
                 <artifactId>JUnitParams</artifactId>
-                <version>1.0.5</version>
+                <version>1.1.1</version>
                 <scope>test</scope>
             </dependency>
 
@@ -644,21 +662,21 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
 
                 <!-- resources -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>3.1.0</version>
                 </plugin>
 
                 <!-- maven-source-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>3.1.0</version>
 
                     <executions>
                         <execution>
@@ -688,7 +706,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.1.2</version>
 
                     <configuration>
                         <archive>
@@ -709,11 +727,10 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.10.3</version>
+                    <version>3.1.1</version>
 
                     <configuration>
-                        <!-- todo: fix javadoc issues so we can re-enable doclint (by deleting the line below) -->
-                        <additionalparam>-Xdoclint:none</additionalparam>
+                        <doclint>none</doclint>
                     </configuration>
                 </plugin>
 
@@ -721,8 +738,9 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.5</version>
+                    <version>3.8.1</version>
                     <configuration>
+                        <release>${java.version}</release>
                         <compilerArgs>
                             <arg>-Werror</arg>
                             <arg>-Xlint:cast</arg>
@@ -750,7 +768,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.19.1</version>
+                    <version>3.0.0-M3</version>
                     <configuration>
                         <excludes>
                             <exclude>**/*ManualTest.java</exclude>
@@ -762,7 +780,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>2.19.1</version>
+                    <version>3.0.0-M3</version>
                     <configuration>
                         <excludes>
                             <exclude>**/*ManualTest.java</exclude>
@@ -775,7 +793,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.2.3</version>
                     <configuration>
                         <archive>
                             <manifestEntries>
@@ -795,7 +813,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.1.1</version>
                 </plugin>
 
                 <!--maven-release-plugin -->
@@ -813,28 +831,28 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.4</version>
+                    <version>3.8.2</version>
                 </plugin>
 
                 <!-- maven-install-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
 
                 <!-- maven-deploy-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
 
                 <!-- maven-dependency-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.10</version>
+                    <version>3.1.1</version>
                 </plugin>
 
                 <!-- maven-jgit-buildnumber-plugin -->
@@ -862,33 +880,33 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.10</version>
+                    <version>3.0.0</version>
                 </plugin>
 
                 <!-- asciidoctor -->
                 <plugin>
                     <groupId>org.asciidoctor</groupId>
                     <artifactId>asciidoctor-maven-plugin</artifactId>
-                    <version>1.5.3</version>
+                    <version>2.0.0-RC.1</version>
 
                     <dependencies>
                         <dependency>
                             <groupId>org.asciidoctor</groupId>
                             <artifactId>asciidoctorj-pdf</artifactId>
-                            <version>1.5.0-alpha.11</version>
+                            <version>1.5.0-beta.5</version>
                         </dependency>
 
                         <!--the jruby version used by asciidoctorj-pdf is broken, and we need to downgrade -->
                         <dependency>
                             <groupId>org.jruby</groupId>
                             <artifactId>jruby-complete</artifactId>
-                            <version>1.7.21</version>
+                            <version>9.2.8.0</version>
                         </dependency>
 
                         <dependency>
                             <groupId>org.asciidoctor</groupId>
                             <artifactId>asciidoctorj</artifactId>
-                            <version>1.5.4</version>
+                            <version>2.1.0</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -904,7 +922,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.4.1</version>
+                    <version>3.0.0-M2</version>
                     <executions>
                         <execution>
                             <id>enforce-maven-build-rules</id>
@@ -929,6 +947,15 @@
                                     <requireJavaVersion>
                                         <version>[${maven.compiler.source},)</version>
                                     </requireJavaVersion>
+
+                                    <!-- required minimum version of Maven must be specified -->
+                                    <requireMavenVersion>
+                                        <version>[3.5.0,)</version>
+                                        <message>** MAVEN VERSION ERROR ** Maven 3.5.0 or above is
+                                            required. See
+                                            https://maven.apache.org/install.html
+                                        </message>
+                                    </requireMavenVersion>
 
                                     <!-- make sure we use consistent versions for multi-module 3rd party dependencies -->
                                     <requireSameVersions>
@@ -988,7 +1015,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.7.6.201602180812</version>
+                    <version>0.8.5</version>
                     <executions>
                         <execution>
                             <id>jacoco-pre-unit-test</id>
