@@ -17,8 +17,8 @@
 
 package org.garnishtest.modules.generic.httpclient.request_preparer;
 
-import org.garnishtest.modules.generic.httpclient.HttpRequestBuilder;
 import lombok.NonNull;
+import org.garnishtest.modules.generic.httpclient.HttpRequestBuilder;
 
 public interface HttpRequestPreparer {
 

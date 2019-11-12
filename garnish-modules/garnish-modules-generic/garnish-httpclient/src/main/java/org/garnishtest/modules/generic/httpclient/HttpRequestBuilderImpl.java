@@ -17,111 +17,108 @@
 
 package org.garnishtest.modules.generic.httpclient;
 
-import org.garnishtest.modules.generic.httpclient.executor.HttpRequestExecutor;
-import org.garnishtest.modules.generic.httpclient.model.HttpMethod;
-import org.garnishtest.modules.generic.httpclient.model.HttpRequest;
-import org.garnishtest.modules.generic.httpclient.model.HttpResponse;
-import org.garnishtest.modules.generic.httpclient.model.body.HttpRequestBody;
-import org.garnishtest.modules.generic.httpclient.model.body.impl.MultipartHttpRequestBody;
-import org.garnishtest.modules.generic.httpclient.model.body.impl.SimpleHttpRequestBody;
-import org.garnishtest.modules.generic.uri.util.MultiMapBuilder;
+import com.google.common.net.HttpHeaders;
 import io.mola.galimatias.URL;
 import lombok.NonNull;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.garnishtest.modules.generic.httpclient.executor.HttpRequestExecutor;
+import org.garnishtest.modules.generic.httpclient.model.HttpMethod;
+import org.garnishtest.modules.generic.httpclient.model.body.impl.MultiPartBodyPublisher;
+import org.springframework.http.MediaType;
+import org.springframework.util.MimeType;
 
 import javax.annotation.Nullable;
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class HttpRequestBuilderImpl implements HttpRequestBuilder {
 
+    @NonNull private final HttpRequest.Builder builder;
     @NonNull private final HttpRequestExecutor httpRequestExecutor;
 
     @NonNull private final HttpMethod method;
-    @NonNull private final URL url;
-
-    @NonNull private final MultiMapBuilder<String, String> headers = new MultiMapBuilder<>();
-    @Nullable private HttpRequestBody body;
 
     public HttpRequestBuilderImpl(@NonNull final HttpRequestExecutor httpRequestExecutor,
-                                  @NonNull final HttpMethod method,
-                                  @NonNull final URL url) {
+        @NonNull final HttpMethod method, @NonNull final URL url) {
         this.httpRequestExecutor = httpRequestExecutor;
 
         this.method = method;
-        this.url = url;
+        this.builder = HttpRequest.newBuilder(URI.create(url.toString()));
     }
 
-    /** like {@link #addHeader(String, String)}, but previous values for this header are removed */
-    @NonNull
-    @Override
-    public HttpRequestBuilder setHeader(@NonNull final String name,
-                                        @NonNull final String value) {
-        this.headers.setValue(name, value);
+    /**
+     * like {@link #addHeader(String, String)}, but previous values for this header are removed
+     */
+    @NonNull @Override public HttpRequestBuilder setHeader(@NonNull final String name,
+        @NonNull final String value) {
+        this.builder.setHeader(name, value);
 
         return this;
     }
 
-    /** like {@link #setHeader(String, String)}, but previous values for this header are preserved */
-    @NonNull
-    @Override
-    public HttpRequestBuilder addHeader(@NonNull final String name,
-                                        @NonNull final String value) {
-        this.headers.addValue(name, value);
+    /**
+     * like {@link #setHeader(String, String)}, but previous values for this header are preserved
+     */
+    @NonNull @Override public HttpRequestBuilder addHeader(@NonNull final String name,
+        @NonNull final String value) {
+        this.builder.header(name, value);
 
         return this;
     }
 
-    @NonNull
-    @Override
-    public HttpRequestBuilder addHeader(@NonNull final String name,
-                                        @Nullable final String... values) {
-        this.headers.addAllValues(name, values);
-
+    @NonNull @Override public HttpRequestBuilder addHeader(@NonNull final String name,
+        @Nullable final String... values) {
+        for (String value : values) {
+            addHeader(name, value);
+        }
         return this;
     }
 
-    @NonNull
-    @Override
-    public HttpRequestBuilder addHeader(@NonNull final String key,
-                                        @NonNull final List<String> values) {
-        this.headers.addAllValues(key, values);
-
+    @NonNull @Override public HttpRequestBuilder addHeader(@NonNull final String key,
+        @NonNull final List<String> values) {
+        for (String value : values) {
+            addHeader(key, value);
+        }
         return this;
     }
 
-    @Override
-    @NonNull
-    public HttpRequestBuilder body(@NonNull final String body) {
+    @Override @NonNull public HttpRequestBuilder body(@NonNull final String body) {
         return body(body, null);
     }
 
-    @Override
-    @NonNull
-    public HttpRequestBuilder body(@NonNull final String body,
-                                   @Nullable final ContentType contentType) {
-        this.body = new SimpleHttpRequestBody(body, contentType);
+    @Override @NonNull
+    public HttpRequestBuilder body(@NonNull final String body, @Nullable final MimeType mimeType) {
+        if (this.method.canHaveBody()) {
+            this.builder.method(method.name(), HttpRequest.BodyPublishers.ofString(body));
+        } else {
+            this.builder.method(method.name(), HttpRequest.BodyPublishers.noBody());
+        }
+        if (mimeType != null) {
+            setHeader(HttpHeaders.CONTENT_TYPE, mimeType.toString());
+        }
+        return this;
+    }
+
+    @Override @NonNull
+    public HttpRequestBuilder body(@NonNull final MultiPartBodyPublisher publisher) {
+        Map<String, String> params = new HashMap<>();
+        params.put("boundary", publisher.getBoundary());
+        setHeader(HttpHeaders.CONTENT_TYPE,
+            new MediaType(MediaType.MULTIPART_FORM_DATA, params).toString());
+
+        this.builder.POST(publisher.build());
 
         return this;
     }
 
-    @Override
-    @NonNull
-    public HttpRequestBuilder body(@NonNull final MultipartEntityBuilder body) {
-        this.body = new MultipartHttpRequestBody(body);
-
-        return this;
-    }
-
-    @Override
-    @NonNull
-    public HttpResponse execute() {
+    @Override @NonNull public HttpResponse<String> execute() {
         return this.httpRequestExecutor.execute(this);
     }
 
     public HttpRequest build() {
-        return new HttpRequest(
-                this.method, this.url, this.headers.build(), this.body
-        );
+        return this.builder.build();
     }
 }

@@ -20,7 +20,7 @@ package org.garnishtest.steps.restclient;
 import org.garnishtest.modules.generic.httpclient.HttpRequestBuilder;
 import org.garnishtest.modules.generic.httpclient.SimpleHttpClient;
 import org.garnishtest.modules.generic.httpclient.model.HttpMethod;
-import org.garnishtest.modules.generic.httpclient.model.HttpResponse;
+import org.garnishtest.modules.generic.httpclient.model.body.impl.MultiPartBodyPublisher;
 import org.garnishtest.modules.generic.springutils.ClasspathUtils;
 import org.garnishtest.modules.generic.uri.UriQuery;
 import org.garnishtest.modules.generic.variables_resolver.impl.escape.impl.ValueEscapers;
@@ -32,20 +32,22 @@ import org.garnishtest.steps.vars.scenario_user_vars.ScenarioUserVariables;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import lombok.NonNull;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.StringBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.util.MimeTypeUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.http.HttpResponse;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 
 public class RestClientCallSteps {
 
-    @NonNull private static final ScenarioAttribute<MultipartEntityBuilder> MULTIPART_REQUEST_SCENARIO_ATTR = ScenarioAttribute.create();
+    @NonNull private static final ScenarioAttribute<MultiPartBodyPublisher>
+        MULTIPART_REQUEST_SCENARIO_ATTR = ScenarioAttribute.create();
 
     @NonNull private static final ScenarioAttribute<Map<String, String>> PREPARED_HEADERS = ScenarioAttribute.create();
     @NonNull private static final ScenarioAttribute<String> PREPARED_REQUEST_BODY = ScenarioAttribute.create();
@@ -98,7 +100,7 @@ public class RestClientCallSteps {
 
         requestBuilder = requestBuilder.body(requestBody);
 
-        final HttpResponse response = requestBuilder.execute();
+        final HttpResponse<String> response = requestBuilder.execute();
 
         this.responseManager.setResponse(response);
     }
@@ -122,9 +124,9 @@ public class RestClientCallSteps {
                 requestBuilder = requestBuilder.addHeader(entry.getKey(), entry.getValue());
             }
         }
-        requestBuilder = requestBuilder.body(jsonBody, ContentType.APPLICATION_JSON);
+        requestBuilder = requestBuilder.body(jsonBody, MimeTypeUtils.APPLICATION_JSON);
 
-        final HttpResponse response = requestBuilder.execute();
+        final HttpResponse<String> response = requestBuilder.execute();
 
         this.responseManager.setResponse(response);
     }
@@ -140,8 +142,8 @@ public class RestClientCallSteps {
         jsonBody = ScenarioUserVariables.resolveInText(jsonBody, ValueEscapers.json());
         jsonBody = JsonUtils.makeValidJson(jsonBody);
 
-        final HttpResponse response = this.httpClient.request(method, url)
-                                                     .body(jsonBody, ContentType.APPLICATION_JSON)
+        final HttpResponse<String> response =
+            this.httpClient.request(method, url).body(jsonBody, MimeTypeUtils.APPLICATION_JSON)
                                                      .execute();
 
         this.responseManager.setResponse(response);
@@ -160,8 +162,8 @@ public class RestClientCallSteps {
         jsonBody = JsonUtils.makeValidJson(jsonBody);
 
 
-        final HttpResponse response = this.httpClient.request(method, url)
-                                                     .body(jsonBody, ContentType.APPLICATION_JSON)
+        final HttpResponse<String> response =
+            this.httpClient.request(method, url).body(jsonBody, MimeTypeUtils.APPLICATION_JSON)
                                                      .execute();
 
         this.responseManager.setResponse(response);
@@ -178,7 +180,7 @@ public class RestClientCallSteps {
         String body = reqBody;
         body = ScenarioUserVariables.resolveInText(body, ValueEscapers.json());
 
-        final HttpResponse response = this.httpClient.request(method, url)
+        final HttpResponse<String> response = this.httpClient.request(method, url)
                                                      .body(body)
                                                      .execute();
 
@@ -189,13 +191,18 @@ public class RestClientCallSteps {
     public void a_multipart_request_field_name_value_contentType(@NonNull final String fieldName,
                                                                  @NonNull final String fieldValue,
                                                                  @NonNull final String contentType) throws UnsupportedEncodingException {
-        MultipartEntityBuilder multipart = MULTIPART_REQUEST_SCENARIO_ATTR.getValue();
+        MultiPartBodyPublisher multipart = MULTIPART_REQUEST_SCENARIO_ATTR.getValue();
         if (multipart == null) {
-            multipart = MultipartEntityBuilder.create();
+            multipart = new MultiPartBodyPublisher();
             MULTIPART_REQUEST_SCENARIO_ATTR.setValue(multipart);
         }
 
-        multipart.addPart(fieldName, new StringBody(fieldValue, ContentType.create(contentType)));
+
+        final Charset charset = MimeTypeUtils.parseMimeType(contentType).getCharset();
+        byte[] fieldValueBytes =
+            fieldValue.getBytes(charset != null ? charset : StandardCharsets.US_ASCII);
+
+        multipart.addPart(fieldName, new String(fieldValueBytes, StandardCharsets.UTF_8));
     }
 
     @Given("^a multipart request field '([^']+)' with value from file '([^']+)' and content type '([^']+)'$")
@@ -217,7 +224,8 @@ public class RestClientCallSteps {
         jsonBody = ScenarioUserVariables.resolveInText(jsonBody, ValueEscapers.json());
         jsonBody = JsonUtils.makeValidJson(jsonBody);
 
-        a_multipart_request_field_name_value_contentType(fieldName, jsonBody, ContentType.APPLICATION_JSON.getMimeType());
+        a_multipart_request_field_name_value_contentType(fieldName, jsonBody,
+            MimeTypeUtils.APPLICATION_JSON_VALUE);
     }
 
     @When("^I call multipart '(GET|PUT|POST|DELETE|HEAD|OPTIONS)' on '(.+)'$")
@@ -225,8 +233,9 @@ public class RestClientCallSteps {
             @NonNull final HttpMethod method,
             @NonNull final String url
     ) {
-        final MultipartEntityBuilder multipartBody = MULTIPART_REQUEST_SCENARIO_ATTR.getRequiredValue();
-        final HttpResponse response = this.httpClient.request(method, url)
+        final MultiPartBodyPublisher multipartBody =
+            MULTIPART_REQUEST_SCENARIO_ATTR.getRequiredValue();
+        final HttpResponse<String> response = this.httpClient.request(method, url)
                                                      .body(multipartBody)
                                                      .execute();
 
@@ -238,13 +247,14 @@ public class RestClientCallSteps {
             @NonNull final HttpMethod method,
             @NonNull final String url
     ) throws URISyntaxException {
-        final HttpResponse response = performJsonRequestWithoutBody(method, url);
+        final HttpResponse<String> response = performJsonRequestWithoutBody(method, url);
 
         this.responseManager.setResponse(response);
     }
 
     // todo: move this method to a separate support class
-    public HttpResponse performJsonRequestWithoutBody(@NonNull final HttpMethod method, @NonNull final String url) {
+    public HttpResponse<String> performJsonRequestWithoutBody(@NonNull final HttpMethod method,
+        @NonNull final String url) {
         return this.httpClient.request(method, url)
                               .setHeader("Content-Type", "application/json")
                               .execute();
