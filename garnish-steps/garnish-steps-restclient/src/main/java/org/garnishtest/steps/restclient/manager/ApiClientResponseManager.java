@@ -19,20 +19,21 @@ package org.garnishtest.steps.restclient.manager;
 
 import org.garnishtest.steps.vars.scenario_attrs.ScenarioAttribute;
 import lombok.NonNull;
-import org.garnishtest.modules.generic.httpclient.model.HttpResponse;
+
+import java.net.http.HttpResponse;
 
 public class ApiClientResponseManager {
 
-    @NonNull private static final ScenarioAttribute<HttpResponse> SESSION_ATTR_RESPONSE = ScenarioAttribute.create();
+    @NonNull private static final ScenarioAttribute<HttpResponse<String>> SESSION_ATTR_RESPONSE =
+        ScenarioAttribute.create();
     @NonNull private static final ScenarioAttribute<String> SESSION_ATTR_BODY = ScenarioAttribute.create();
 
-    public void setResponse(@NonNull final HttpResponse response) {
+    public void setResponse(@NonNull final HttpResponse<String> response) {
         SESSION_ATTR_RESPONSE.setValue(response);
-        SESSION_ATTR_BODY.setValue(response.getBodyAsString());
+        SESSION_ATTR_BODY.setValue(response.body());
     }
 
-    @NonNull
-    public HttpResponse getResponse() {
+    @NonNull public HttpResponse<String> getResponse() {
         return SESSION_ATTR_RESPONSE.getRequiredValue();
     }
 

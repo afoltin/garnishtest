@@ -26,11 +26,11 @@ import org.garnishtest.demo.rest_complex.web.service.geocoding.model.GeoLocation
 import org.garnishtest.demo.rest_complex.web.utils.JsonUtils;
 import org.garnishtest.modules.generic.httpclient.SimpleHttpClient;
 import org.garnishtest.modules.generic.httpclient.model.HttpMethod;
-import org.garnishtest.modules.generic.httpclient.model.HttpResponse;
 import org.garnishtest.modules.generic.uri.UriQuery;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 
+import java.net.http.HttpResponse;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,19 +50,20 @@ public final class GeoCodingService {
                         .build()
         );
 
-        final HttpResponse response = this.simpleHttpClient.request(HttpMethod.GET, "/maps/api/geocode/json?" + query)
+        final HttpResponse<String>
+            response = this.simpleHttpClient.request(HttpMethod.GET, "/maps/api/geocode/json?" + query)
                                                            .execute();
 
-        if (response.getStatusCode() != HttpStatus.OK.value()) {
+        if (response.statusCode() != HttpStatus.OK.value()) {
             throw new GeoCodingException(
                     "failed to geocode [" + address + "]"
-                    + "; responseCode=[" + response.getStatusCode() + "]"
-                    + "; responseBody=[" + response.getBodyAsString() + "]"
+                    + "; responseCode=[" + response.statusCode() + "]"
+                    + "; responseBody=[" + response.body() + "]"
             );
         }
 
 
-        return parseResponse(response.getBodyAsString());
+        return parseResponse(response.body());
 
     }
 

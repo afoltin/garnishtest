@@ -17,25 +17,29 @@
 
 package org.garnishtest.modules.generic.httpclient;
 
-import org.garnishtest.modules.generic.httpclient.model.HttpResponse;
 import lombok.NonNull;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.garnishtest.modules.generic.httpclient.model.body.impl.MultiPartBodyPublisher;
+import org.springframework.util.MimeType;
 
 import javax.annotation.Nullable;
+import java.net.http.HttpResponse;
 import java.util.List;
 
 public interface HttpRequestBuilder {
 
     @NonNull HttpRequestBuilder setHeader(@NonNull String name, @NonNull String value);
+
     @NonNull HttpRequestBuilder addHeader(@NonNull String name, @NonNull String value);
+
     @NonNull HttpRequestBuilder addHeader(@NonNull String name, @Nullable String... values);
+
     @NonNull HttpRequestBuilder addHeader(@NonNull String key, @NonNull List<String> values);
 
     @NonNull HttpRequestBuilder body(@NonNull String body);
-    @NonNull HttpRequestBuilder body(@NonNull String body, @NonNull final ContentType contentType);
-    @NonNull HttpRequestBuilder body(@NonNull MultipartEntityBuilder body);
 
-    @NonNull
-    HttpResponse execute();
+    @NonNull HttpRequestBuilder body(@NonNull String body, @NonNull final MimeType mimeType);
+
+    @NonNull HttpRequestBuilder body(@NonNull MultiPartBodyPublisher publisher);
+
+    @NonNull HttpResponse<String> execute();
 }

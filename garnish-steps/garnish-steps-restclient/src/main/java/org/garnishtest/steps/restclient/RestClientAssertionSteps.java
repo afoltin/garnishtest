@@ -49,14 +49,14 @@ public final class RestClientAssertionSteps {
 
     @Then("^the response code should be (\\d{1,3})$")
     public void the_response_code_should_be(final int expectedResponseCode) {
-        final int actualStatusCode = this.apiClientResponseManager.getResponse().getStatusCode();
+        final int actualStatusCode = this.apiClientResponseManager.getResponse().statusCode();
 
         // todo: nicer error message (include the code name as string)
         assertThat(actualStatusCode).isEqualTo(expectedResponseCode);
     }
     @Then("^the response code should not be (\\d{1,3})$")
     public void the_response_code_should_not_be(final int expectedResponseCode) {
-        final int actualStatusCode = this.apiClientResponseManager.getResponse().getStatusCode();
+        final int actualStatusCode = this.apiClientResponseManager.getResponse().statusCode();
 
         assertThat(actualStatusCode).isNotEqualTo(expectedResponseCode);
     }
@@ -64,9 +64,8 @@ public final class RestClientAssertionSteps {
     @Then("^the response header '(.+)' should match '(.*)'$")
     public void the_response_header_should_match(@NonNull final String headerName,
                                                  @NonNull final String expectedHeaderValueRegexp) {
-        final String headerValue = this.apiClientResponseManager.getResponse()
-                                                                .getFirstHeaderValue(headerName)
-                                                                .orNull();
+        final String headerValue =
+            this.apiClientResponseManager.getResponse().headers().firstValue(headerName).get();
 
         assertThat(headerValue).matches(expectedHeaderValueRegexp);
     }
@@ -74,9 +73,8 @@ public final class RestClientAssertionSteps {
     @Then("^the response header '(.+)' should be equal to '(.*)'$")
     public void the_response_header_should_be_equal_to(@NonNull final String headerName,
                                                        @NonNull final String expectedHeaderValue) {
-        final String headerValue = this.apiClientResponseManager.getResponse()
-                                                                .getFirstHeaderValue(headerName)
-                                                                .orNull();
+        final String headerValue =
+            this.apiClientResponseManager.getResponse().headers().firstValue(headerName).get();
 
         assertThat(headerValue).isEqualTo(expectedHeaderValue);
     }
