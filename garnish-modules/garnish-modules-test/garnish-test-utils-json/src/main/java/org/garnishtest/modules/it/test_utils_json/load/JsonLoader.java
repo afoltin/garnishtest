@@ -100,7 +100,8 @@ public final class JsonLoader {
         final InputStream inputStream = this.classLoader.getResourceAsStream(classpathLocation);
 
         if (inputStream == null) {
-            throw new RuntimeException("could not find classpath resource at [" + classpathLocation + "]");
+            throw new JsonLoaderException(
+                "could not find classpath resource at [" + classpathLocation + "]");
         }
 
         try (final InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {

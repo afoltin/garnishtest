@@ -35,6 +35,8 @@ public final class TestRequestPreparer implements HttpRequestPreparer {
     }
 
     @Override
-    public void prepareRequest(@NonNull final HttpRequestBuilder requestBuilder) {}
+    public void prepareRequest(@NonNull final HttpRequestBuilder requestBuilder) {
+        // Do nothing
+    }
 
 }

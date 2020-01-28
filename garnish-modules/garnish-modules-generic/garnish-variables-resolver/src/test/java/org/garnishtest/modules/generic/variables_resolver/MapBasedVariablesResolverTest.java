@@ -99,16 +99,11 @@ public class MapBasedVariablesResolverTest {
         final MapBasedVariablesResolver variables = new MapBasedVariablesResolver(VAR_PREFIX, VAR_SUFFIX);
         variables.set("comparison", "3 > 2");
 
-        final ValueEscaper valueEscaper = new ValueEscaper() {
-            @Nullable
-            @Override
-            public String escape(@Nullable final String textToEscape) {
-                if (textToEscape == null) {
-                    return null;
-                }
-
-                return textToEscape.replaceAll(">", "greater than");
+        final ValueEscaper valueEscaper = textToEscape -> {
+            if (textToEscape == null) {
+                return null;
             }
+            return textToEscape.replaceAll(">", "greater than");
         };
 
         assertEquals(

@@ -66,7 +66,8 @@ public final class DbUnitDatabaseComparer {
     }
 
     private void tryToCompareDatabaseWith(@NonNull final Resource expectedXmlDataSetResource,
-                                          @NonNull final VariablesResolver variablesResolver) throws Exception {
+        @NonNull final VariablesResolver variablesResolver)
+        throws SQLException, IOException, DatabaseUnitException {
         if (!expectedXmlDataSetResource.exists()) {
             throw new IllegalArgumentException("cannot find expectedXmlDataSetResource [" + expectedXmlDataSetResource + "]");
         }

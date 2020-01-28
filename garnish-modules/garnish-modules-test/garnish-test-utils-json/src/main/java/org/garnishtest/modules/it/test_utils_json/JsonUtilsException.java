@@ -15,25 +15,25 @@
  *
  */
 
-package org.garnishtest.modules.it.test_utils_dbunit.config.impl;
+package org.garnishtest.modules.it.test_utils_json;
 
-import org.garnishtest.modules.it.test_utils_dbunit.config.DbUnitConfigurer;
-import lombok.NonNull;
-import org.dbunit.database.DatabaseConfig;
+public final class JsonUtilsException extends RuntimeException {
 
-import javax.annotation.Nullable;
+    private static final long serialVersionUID = 3163863043414950149L;
 
-public final class NoOpDbUnitConfigurer implements DbUnitConfigurer {
-
-    @Nullable
-    @Override
-    public String getDatabaseName() {
-        return null;
+    public JsonUtilsException() {
     }
 
-    @Override
-    public void configure(@NonNull final DatabaseConfig config) {
-        // Do nothing
+    public JsonUtilsException(final String message) {
+        super(message);
+    }
+
+    public JsonUtilsException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
+
+    public JsonUtilsException(final Throwable cause) {
+        super(cause);
     }
 
 }

@@ -49,7 +49,7 @@ public final class JsonUtils {
         try {
             return OBJECT_MAPPER.readValue(jsonString, resultClass);
         } catch (final Exception e) {
-            throw new RuntimeException(
+            throw new JsonUtilsException(
                     "an error occurred trying to parse" +
                     " JSON string [" + jsonString + "]" +
                     ", resultClass=[" + resultClass + "]",
@@ -65,7 +65,7 @@ public final class JsonUtils {
 
             return OBJECT_MAPPER.readValue(jsonString, type);
         } catch (final Exception e) {
-            throw new RuntimeException(
+            throw new JsonUtilsException(
                     "an error occurred trying to parse" +
                     " JSON string [" + jsonString + "]" +
                     ", resultElementClass=[" + resultElementClass + "]",

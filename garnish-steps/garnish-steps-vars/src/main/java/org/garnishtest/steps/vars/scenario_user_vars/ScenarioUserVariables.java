@@ -33,6 +33,9 @@ public final class ScenarioUserVariables {
 
     private static final ScenarioAttribute<MapBasedVariablesResolver> CUSTOM_STORY_VARIABLES = ScenarioAttribute.create();
 
+    private ScenarioUserVariables() {
+    }
+
     public static void set(@NonNull final String name,
                            @Nullable final String value) {
         final MapBasedVariablesResolver storyVariables = CUSTOM_STORY_VARIABLES.getValue();
